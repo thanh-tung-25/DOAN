@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - Hệ Thống Quản Lý Phòng Trọ Smart</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="dang_nhap.css">
+</head>
+<body>
+    <div class="khung-dang-nhap-chinh">
+        <div class="the-dang-nhap">
+            <div class="dau-the">
+                <div class="logo-hinh">🏠</div>
+                <h2>Đăng Nhập Hệ Thống</h2>
+                <p>Hệ thống Quản lý và Vận hành Phòng trọ Smart</p>
+            </div>
+
+            <!-- Nut dang nhap nhanh cho 4 Role de de dang test -->
+            <div class="vung-chon-nhanh">
+                <p class="tieu-de-nhanh">⚡ Chọn nhanh tài khoản để trải nghiệm:</p>
+                <div class="luoi-nut-nhanh">
+                    <button type="button" class="btn-nhanh" onclick="dienThongTin('admin@hethong.vn', '123456')">👑 Admin</button>
+                    <button type="button" class="btn-nhanh" onclick="dienThongTin('chutro@gmail.com', '123456')">🏢 Chủ trọ</button>
+                    <button type="button" class="btn-nhanh" onclick="dienThongTin('nhanvien@gmail.com', '123456')">👷 Nhân viên</button>
+                    <button type="button" class="btn-nhanh" onclick="dienThongTin('khachthue@gmail.com', '123456')">👤 Khách thuê</button>
+                </div>
+            </div>
+
+            <form id="form-dang-nhap">
+                <div class="nhom-nhap">
+                    <label for="email">Địa chỉ Email</label>
+                    <input type="email" id="email" required placeholder="name@example.com" value="chutro@gmail.com">
+                </div>
+
+                <div class="nhom-nhap">
+                    <label for="matKhau">Mật khẩu</label>
+                    <input type="password" id="matKhau" required placeholder="••••••••" value="123456">
+                </div>
+
+                <button type="submit" id="nut-dang-nhap" class="nut-xac-nhan">ĐĂNG NHẬP</button>
+            </form>
+
+            <div class="chan-the">
+                Chưa có tài khoản? <a href="/cac_trang/xac_thuc/dang_ky/dang_ky.html">Đăng ký tài khoản mới</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/tien_ich_dung_chung/thong_bao_dep.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="dang_nhap.js"></script>
+</body>
+</html>

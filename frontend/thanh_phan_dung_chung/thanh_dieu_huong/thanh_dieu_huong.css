@@ -1,0 +1,275 @@
+/* ====================================================================
+   THANH ĐIỀU HƯỚNG CAO CẤP (LUXURY GLASSMORPHISM TOPBAR)
+   ==================================================================== */
+.thanh-dieu-huong {
+    height: 70px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1.5px solid rgba(167, 243, 208, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px -2px rgba(6, 78, 59, 0.08);
+}
+
+.tdh-trai {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nut-icon {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    font-size: 18px;
+    cursor: pointer;
+    color: #065f46;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nut-icon:hover {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #059669;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+}
+
+/* LOGO THƯƠNG HIỆU GÓC TRÁI */
+.logo-thuong-hieu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    user-select: none;
+}
+
+.khung-logo-nav {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+    border: 1.5px solid rgba(167, 243, 208, 0.5);
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: transform 0.25s ease;
+}
+
+.khung-logo-nav:hover {
+    transform: scale(1.06) rotate(2deg);
+}
+
+.khung-logo-nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 9px;
+}
+
+.khung-chu-logo {
+    display: flex;
+    flex-direction: column;
+}
+
+.dong-ten-thuong-hieu {
+    font-size: 16px;
+    font-weight: 850;
+    letter-spacing: -0.4px;
+    color: #064e3b;
+    line-height: 1.2;
+}
+
+.dong-ten-thuong-hieu strong {
+    background: linear-gradient(135deg, #059669, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dong-phu-thuong-hieu {
+    font-size: 10.5px;
+    font-weight: 750;
+    color: #059669;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+/* KHU VỰC BÊN PHẢI CỦA HEADER */
+.tdh-phai {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* BADGE REALTIME TRẠNG THÁI HỆ THỐNG */
+.trang-thai-realtime-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: #f0fdf4;
+    border: 1px solid #a7f3d0;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #065f46;
+    box-shadow: 0 2px 6px rgba(6, 78, 59, 0.04);
+}
+
+.cham-xanh-pulse {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* NÚT CHUÔNG THÔNG BÁO */
+.nut-chuong-thong-bao {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #064e3b;
+}
+
+.nut-chuong-thong-bao:hover {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.18);
+}
+
+.cham-thong-bao-do {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 9px;
+    height: 9px;
+    background: #e11d48;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 6px rgba(225, 29, 72, 0.6);
+}
+
+/* THẺ PROFILE NGƯỜI DÙNG */
+.the-ho-so-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 14px 5px 6px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 9999px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.the-ho-so-header:hover {
+    background: #f0fdf4;
+    border-color: #a7f3d0;
+    box-shadow: 0 4px 14px rgba(6, 78, 59, 0.08);
+}
+
+.avatar-tron-header {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #ffffff;
+    font-weight: 850;
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(5, 150, 105, 0.35);
+    position: relative;
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+}
+
+.online-dot {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 10px;
+    height: 10px;
+    background: #22c55e;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+}
+
+.ten-va-vai-tro-header {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.25;
+}
+
+.ten-header {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.vai-tro-header {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #059669;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* NÚT ĐĂNG XUẤT HIỆN ĐẠI */
+.nut-dang-xuat {
+    padding: 8px 16px;
+    font-size: 12.5px;
+    font-weight: 700;
+    border: 1px solid #fecdd3;
+    background: #fff1f2;
+    color: #e11d48;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 4px rgba(225, 29, 72, 0.08);
+}
+
+.nut-dang-xuat:hover {
+    background: #e11d48;
+    color: #ffffff;
+    border-color: #e11d48;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35);
+}
+

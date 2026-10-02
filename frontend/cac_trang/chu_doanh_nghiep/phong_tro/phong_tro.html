@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Tòa Nhà, Phân Tầng & Sổ Thiết Bị - Doanh Nghiệp BĐS</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="phong_tro.css">
+</head>
+<body>
+    <!-- Thanh điều hướng trên cùng -->
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai">
+            <div class="logo-thuong-hieu">🏢 PHÒNG TRỌ <strong>SMART (DOANH NGHIỆP)</strong></div>
+        </div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-chu_doanh_nghiep">Chủ Doanh Nghiệp</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <!-- Thanh bên sidebar -->
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ DOANH NGHIỆP</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <!-- Nội dung chính -->
+        <main class="noi-dung-chinh">
+            <!-- Tiêu đề trang & Các nút tác vụ nhanh -->
+            <div class="tieu-de-trang">
+                <div>
+                    <div class="huy-hieu-phan-cap">
+                        <span>🏢</span> MÔ HÌNH QUẢN TRỊ BẤT ĐỘNG SẢN DOANH NGHIỆP LỚN
+                    </div>
+                    <h1>Quản Lý Tòa Nhà, Phân Tầng & Sổ Tài Sản Thiết Bị</h1>
+                    <p>Phân cấp chuẩn mực: <strong>Tòa Nhà ➔ Tầng ➔ Phòng ➔ Thiết Bị</strong> kèm cảnh báo khấu hao bảo trì &gt;60% giá trị gốc</p>
+                </div>
+                <div class="hop-nut-hanh-dong-chinh">
+                    <button class="nut-phu-lon" onclick="moModalThemToaNha()">+ Thêm Tòa Nhà Mới</button>
+                    <button class="nut-chinh-lon" onclick="moModalThemPhong()">+ Thêm Phòng Trọ</button>
+                </div>
+            </div>
+
+            <!-- DASHBOARD THỐNG KÊ KPI TOÀN DOANH NGHIỆP -->
+            <div class="luoi-kpi-doanh-nghiep">
+                <div class="the-kpi kpi-toa-nha">
+                    <div class="kpi-icon">🏢</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Tổng Tòa Nhà Đang Quản Lý</span>
+                        <strong class="kpi-value" id="kpi-tong-toa">--</strong>
+                        <span class="kpi-sub" id="kpi-sub-toa">Đang tải dữ liệu...</span>
+                    </div>
+                </div>
+                <div class="the-kpi kpi-tang">
+                    <div class="kpi-icon">🏬</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Tổng Số Tầng Mặt Bằng</span>
+                        <strong class="kpi-value" id="kpi-tong-tang">--</strong>
+                        <span class="kpi-sub" id="kpi-sub-tang">Phân bổ theo kiến trúc tầng</span>
+                    </div>
+                </div>
+                <div class="the-kpi kpi-phong">
+                    <div class="kpi-icon">🚪</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Tổng Phòng & Tỷ Lệ Lấp Đầy</span>
+                        <strong class="kpi-value" id="kpi-tong-phong">--</strong>
+                        <div class="kpi-badges-phong">
+                            <span class="badge-mini badge-trong" id="kpi-phong-trong">0 Trống</span>
+                            <span class="badge-mini badge-thue" id="kpi-phong-thue">0 Đã thuê</span>
+                            <span class="badge-mini badge-sua" id="kpi-phong-sua">0 Bảo trì</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="the-kpi kpi-thiet-bi">
+                    <div class="kpi-icon">⚡</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Sổ Tài Sản & Thiết Bị</span>
+                        <strong class="kpi-value" id="kpi-tong-thiet-bi">--</strong>
+                        <div class="kpi-sub-canh-bao" id="kpi-canh-bao-tb">
+                            <span class="badge-mini badge-de-xuat">⚠️ 0 Đề xuất mua mới (&gt;60%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THANH BỘ CHỌN TÒA NHÀ & BỘ CHUYỂN CHẾ ĐỘ XEM -->
+            <div class="thanh-dieu-khien-doanh-nghiep">
+                <!-- Chọn Tòa Nhà Đang Xem -->
+                <div class="khu-vuc-chon-toa">
+                    <label class="nhan-chon-toa">🏢 Chọn Tòa Nhà:</label>
+                    <div class="danh-sach-nut-toa" id="danh-sach-nut-toa">
+                        <button class="nut-tab-toa kich-hoat" onclick="chonToaNha('tat_ca')">
+                            <span>🏢</span> Tất cả Tòa Nhà (<span id="dem-tat-ca-phong">0</span>)
+                        </button>
+                        <!-- Render JS các tòa nhà -->
+                    </div>
+                </div>
+
+                <!-- Chuyển đổi 3 chế độ xem -->
+                <div class="khu-vuc-che-do-xem">
+                    <div class="thanh-tab-che-do">
+                        <button id="tab-btn-matrix" class="tab-che-do-item active" onclick="chuyenCheDoXem('matrix')">
+                            <span>🏢</span> Sơ Đồ Phân Tầng
+                        </button>
+                        <button id="tab-btn-table" class="tab-che-do-item" onclick="chuyenCheDoXem('table')">
+                            <span>📋</span> Bảng Dữ Liệu
+                        </button>
+                        <button id="tab-btn-assets" class="tab-che-do-item" onclick="chuyenCheDoXem('assets')">
+                            <span>⚡</span> Sổ Thiết Bị Doanh Nghiệp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THANH CÔNG CỤ TÌM KIẾM & BỘ LỌC ĐA TẦNG -->
+            <div class="thanh-bo-loc-da-tang">
+                <div class="bo-loc-nhom-trai">
+                    <!-- Tìm kiếm từ khóa -->
+                    <div class="o-tim-kiem-cao-cap">
+                        <span class="icon-tim">🔍</span>
+                        <input type="text" id="tim-kiem-tu-khoa" placeholder="Tìm kiếm theo mã phòng, tên thiết bị, tòa nhà, địa chỉ..." oninput="locDuLieu()">
+                    </div>
+
+                    <!-- Lọc theo Tầng -->
+                    <select id="loc-theo-tang" class="select-bo-loc" onchange="locDuLieu()">
+                        <option value="">📶 Tất cả các Tầng</option>
+                        <option value="1">Tầng 1 (Trệt)</option>
+                        <option value="2">Tầng 2</option>
+                        <option value="3">Tầng 3</option>
+                        <option value="4">Tầng 4</option>
+                        <option value="5">Tầng 5</option>
+                    </select>
+
+                    <!-- Lọc theo Trạng Thái Phòng -->
+                    <select id="loc-theo-trang-thai" class="select-bo-loc" onchange="locDuLieu()">
+                        <option value="">🏷️ Tất cả trạng thái phòng</option>
+                        <option value="con_trong">🗝️ Phòng còn trống</option>
+                        <option value="da_thue">🔒 Phòng đã thuê</option>
+                        <option value="dang_sua_chua">🛠️ Đang sửa chữa / Bảo trì</option>
+                    </select>
+
+                    <!-- Lọc Thiết Bị Cảnh Báo (Áp dụng khi ở tab Sổ thiết bị) -->
+                    <select id="loc-tinh-trang-tb" class="select-bo-loc" style="display:none;" onchange="locDuLieu()">
+                        <option value="">⚡ Tất cả tình trạng thiết bị</option>
+                        <option value="de_xuat_mua_moi">🚨 Đề xuất mua mới (&gt;60% chi phí)</option>
+                        <option value="hoat_dong_tot">✅ Hoạt động tốt</option>
+                        <option value="can_bao_duong">🔧 Cần bảo dưỡng</option>
+                        <option value="hong_hoc">❌ Đang hỏng hóc</option>
+                    </select>
+                </div>
+
+                <div class="bo-loc-nhom-phai">
+                    <span class="huy-hieu-so-luong" id="huy-hieu-so-luong">
+                        <span>📊</span> <span id="text-dem-ket-qua">Đang tính toán...</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- VIEW 1: SƠ ĐỒ MẶT BẰNG PHÂN TẦNG (FLOOR MATRIX GRID) -->
+            <div id="vung-xem-matrix" class="vung-noi-dung-view">
+                <div id="danh-sach-so-do-tang" class="danh-sach-so-do-tang">
+                    <!-- Render động từng Tòa Nhà -> Từng Tầng -> Lưới Card Phòng -->
+                </div>
+            </div>
+
+            <!-- VIEW 2: BẢNG DỮ LIỆU CHI TIẾT (TABLE VIEW) -->
+            <div id="vung-xem-table" class="vung-noi-dung-view" style="display: none;">
+                <div class="khung-bang-cao-cap">
+                    <table class="bang-du-lieu">
+                        <thead>
+                            <tr>
+                                <th>Ảnh</th>
+                                <th>Tòa Nhà</th>
+                                <th>Tầng</th>
+                                <th>Mã Phòng</th>
+                                <th>Giá Thuê</th>
+                                <th>Diện Tích</th>
+                                <th>Trạng Thái</th>
+                                <th>Sổ Thiết Bị</th>
+                                <th>Hợp Đồng</th>
+                                <th>Bản Đồ 2km</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bang-danh-sach-phong">
+                            <!-- Render JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VIEW 3: SỔ TÀI SẢN & THIẾT BỊ TẬP TRUNG TOÀN DOANH NGHIỆP (ENTERPRISE ASSET HUB) -->
+            <div id="vung-xem-assets" class="vung-noi-dung-view" style="display: none;">
+                <div class="thanh-tac-vu-thiet-bi-doanh-nghiep">
+                    <div>
+                        <h3>⚡ Sổ Tài Sản & Thiết Bị Tập Trung Toàn Doanh Nghiệp</h3>
+                        <p>Theo dõi toàn bộ trang thiết bị vật tư, lịch sử bảo dưỡng và cảnh báo tự động khi chi phí sửa chữa vượt 60% giá trị ban đầu.</p>
+                    </div>
+                    <button class="nut-chinh" onclick="moModalThemThietBiNhanh()">+ Thêm Thiết Bị Mới Vào Phòng</button>
+                </div>
+
+                <div class="khung-bang-cao-cap">
+                    <table class="bang-du-lieu bang-tai-san-tb">
+                        <thead>
+                            <tr>
+                                <th>Mã TB</th>
+                                <th>Tên Thiết Bị</th>
+                                <th>Tòa Nhà</th>
+                                <th>Tầng</th>
+                                <th>Phòng Đặt</th>
+                                <th>Giá Trị Gốc</th>
+                                <th>Chi Phí Sửa Lũy Kế</th>
+                                <th>Khấu Hao Bảo Trì (%)</th>
+                                <th>Trạng Thái Thiết Bị</th>
+                                <th>Ngày Lắp</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bang-toan-bo-thiet-bi">
+                            <!-- Render JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 1: THÊM TÒA NHÀ MỚI (ENTERPRISE BUILDING) -->
+    <!-- ======================================================== -->
+    <div id="modal-them-toa-nha" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 650px;">
+            <div class="tieu-de-modal">
+                <h3>🏢 Thêm Tòa Nhà / Cơ Sở Mới Cho Doanh Nghiệp</h3>
+                <button onclick="dongModalThemToaNha()" class="nut-dong-modal">✕</button>
+            </div>
+            <form id="form-them-toa-nha" onsubmit="xuLyThemToaNha(event)">
+                <div class="noi-dung-modal">
+                    <div class="nhom-nhap">
+                        <label>Tên Tòa Nhà / Khu Trọ Doanh Nghiệp <span class="dau-sao">*</span></label>
+                        <input type="text" id="toa-ten" required placeholder="Ví dụ: Tòa Nhà Diamond Tower, Tòa Nhà Sài Gòn Pearl..." style="font-weight:700;">
+                    </div>
+
+                    <!-- Địa chỉ hành chính -->
+                    <div class="khung-dia-chinh-modal">
+                        <div class="tieu-de-khoi-dia-chinh">📍 Địa Chỉ Hành Chính (Hệ Thống 34 Tỉnh Thành Mới - Đã Bỏ Cấp Huyện)</div>
+                        <div class="luoi-2-cot">
+                            <div class="nhom-nhap">
+                                <label>Tỉnh / Thành Phố (34 Đơn Vị Mới) <span class="dau-sao">*</span></label>
+                                <select id="toa-tinh-thanh" required></select>
+                            </div>
+                            <div class="nhom-nhap">
+                                <label>Phường / Xã / Thị Trấn (Sau Sáp Nhập) <span class="dau-sao">*</span></label>
+                                <select id="toa-phuong-xa" required></select>
+                            </div>
+                        </div>
+                        <div class="nhom-nhap" style="margin-bottom:0;">
+                            <label>Số nhà, ngõ ngách, tên đường <span class="dau-sao">*</span></label>
+                            <input type="text" id="toa-dia-chi-chi-tiet" required placeholder="Ví dụ: 123 Lê Văn Lương, KDC Him Lam...">
+                        </div>
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalThemToaNha()">Hủy Bỏ</button>
+                    <button type="submit" class="nut-chinh">💾 Lưu Tòa Nhà</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 2: THÊM PHÒNG TRỌ (GÁN VÀO TÒA NHÀ & PHÂN TẦNG) -->
+    <!-- ======================================================== -->
+    <div id="modal-them-phong" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 840px; max-height: 92vh; display: flex; flex-direction: column;">
+            <div class="tieu-de-modal">
+                <h3 id="tieu-de-modal-phong">🏢 Thêm Phòng Trọ Mới Vào Tòa Nhà</h3>
+                <button onclick="dongModalThemPhong()" class="nut-dong-modal">✕</button>
+            </div>
+            <form id="form-them-phong" onsubmit="xuLyThemPhong(event)" style="display: flex; flex-direction: column; overflow: hidden;">
+                <div class="noi-dung-modal" style="overflow-y: auto; max-height: calc(92vh - 130px); padding-right: 8px;">
+                    
+                    <!-- 1. Chọn Tòa Nhà & Tầng Cụ Thể -->
+                    <div class="khung-phan-cap-form">
+                        <div class="tieu-de-khoi-form">🏢 Chọn Định Vị: Tòa Nhà ➔ Tầng Mặt Bằng</div>
+                        <div class="luoi-2-cot">
+                            <div class="nhom-nhap">
+                                <label>Thuộc Tòa Nhà Nào? <span class="dau-sao">*</span></label>
+                                <select id="them-id-toa-nha" required style="font-weight:700; color:#064e3b; font-size:14px;">
+                                    <!-- Render các tòa nhà -->
+                                </select>
+                            </div>
+                            <div class="nhom-nhap">
+                                <label>Đặt Tại Tầng Mấy? <span class="dau-sao">*</span></label>
+                                <input type="number" id="them-tang" value="1" min="1" max="50" required style="font-weight:700; font-size:14px;">
+                                <small style="color:#64748b; font-size:11.5px;">Ví dụ: 1 cho Tầng 1, 2 cho Tầng 2...</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Thông số phòng trọ -->
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Mã Phòng (Số phòng) <span class="dau-sao">*</span></label>
+                            <input type="text" id="them-ma-phong" required placeholder="Ví dụ: P.101, P.202, Studio-A" style="font-weight:700;">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Diện Tích (m²) <span class="dau-sao">*</span></label>
+                            <input type="number" id="them-dien-tich" required placeholder="30" step="0.5">
+                        </div>
+                    </div>
+
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Giá Thuê (VND/tháng) <span class="dau-sao">*</span></label>
+                            <input type="number" id="them-gia-thue" required placeholder="4500000">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Tiền Cọc (VND)</label>
+                            <input type="number" id="them-tien-coc" placeholder="Mặc định bằng 1 tháng thuê">
+                        </div>
+                    </div>
+
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Đơn giá điện (đ/kWh)</label>
+                            <input type="number" id="them-don-gia-dien" value="3500">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Đơn giá nước (đ/m³)</label>
+                            <input type="number" id="them-don-gia-nuoc" value="20000">
+                        </div>
+                    </div>
+
+                    <!-- 3. Tích chọn Thiết bị & Tiện nghi phòng -->
+                    <div class="khung-tien-ich-checklist">
+                        <div class="thanh-cong-cu-tien-ich">
+                            <div class="tieu-de-khoi-tien-ich">
+                                <span>🛋️</span> Đồ Đạc Nội Thất & Thiết Bị (Tự động đồng bộ vào Sổ Thiết Bị)
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="nut-chon-nhanh" onclick="chonNhanhTienNghi('co_ban')">✨ Nội thất cơ bản</button>
+                                <button type="button" class="nut-chon-nhanh" onclick="chonNhanhTienNghi('full')">🌟 Full tiện nghi</button>
+                                <button type="button" class="nut-chon-nhanh" onclick="chonNhanhTienNghi('bo_tat_ca')">🧹 Bỏ chọn</button>
+                            </div>
+                        </div>
+
+                        <!-- Nhóm 1: Thiết bị điện tử - gia dụng -->
+                        <div class="phan-nhom-tien-ich">
+                            <div class="nhan-phan-nhom">⚡ Thiết bị điện tử & Gia dụng vật lý</div>
+                            <div class="luoi-the-tich-tien-ich">
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Máy lạnh / Điều hòa" checked> <span>❄️ Máy lạnh / Điều hòa</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Tủ lạnh" checked> <span>🧊 Tủ lạnh</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Máy giặt" checked> <span>🧺 Máy giặt</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Bình nóng lạnh" checked> <span>🔥 Bình nóng lạnh</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Bếp từ & Kệ bếp" checked> <span>🍳 Bếp điện & Kệ bếp</span></label>
+                                <label class="the-tich-tien-ich"><input type="checkbox" name="tien_ich" value="Smart Tivi"> <span>📺 Smart Tivi</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Khóa cửa vân tay" checked> <span>🔐 Khóa vân tay</span></label>
+                                <label class="the-tich-tien-ich"><input type="checkbox" name="tien_ich" value="Quạt treo tường"> <span>💨 Quạt treo tường</span></label>
+                            </div>
+                        </div>
+
+                        <!-- Nhóm 2: Đồ đạc nội thất phòng -->
+                        <div class="phan-nhom-tien-ich">
+                            <div class="nhan-phan-nhom">🛏️ Đồ đạc nội thất phòng</div>
+                            <div class="luoi-the-tich-tien-ich">
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Giường nệm cao cấp" checked> <span>🛏️ Giường ngủ & Nệm</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Tủ quần áo" checked> <span>🚪 Tủ quần áo</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Bàn ghế làm việc" checked> <span>🪑 Bàn ghế làm việc</span></label>
+                                <label class="the-tich-tien-ich da-chon"><input type="checkbox" name="tien_ich" value="Nhà vệ sinh riêng khép kín" checked> <span>🚿 WC riêng khép kín</span></label>
+                                <label class="the-tich-tien-ich"><input type="checkbox" name="tien_ich" value="Ban công riêng thoáng mát"> <span>🌅 Ban công riêng</span></label>
+                                <label class="the-tich-tien-ich"><input type="checkbox" name="tien_ich" value="Gác lửng cao ráo"> <span>🪜 Gác lửng đúc</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Tải ảnh từ máy tính -->
+                    <div class="nhom-nhap">
+                        <label style="display:flex; justify-content:space-between; align-items:center;">
+                            <span>📸 Tải Ảnh Phòng Trọ Từ Máy Tính</span>
+                            <span id="so-luong-anh-chon" style="font-size:12px; color:#059669; font-weight:700;">Chưa chọn ảnh</span>
+                        </label>
+                        <div class="khu-vuc-tai-anh" id="vung-keo-tha-anh" onclick="document.getElementById('tep-anh-phong').click()">
+                            <span class="bieu-tuong-tai">📁</span>
+                            <div class="dong-chu-chinh">Bấm vào đây để chọn ảnh hoặc kéo thả file ảnh vào</div>
+                            <div class="dong-chu-phu">Hỗ trợ JPG, PNG, WEBP (chọn nhiều ảnh cùng lúc)</div>
+                        </div>
+                        <input type="file" id="tep-anh-phong" multiple accept="image/png,image/jpeg,image/webp" style="display:none;" onchange="xuLyChonTepAnh(event)">
+                        <div id="danh-sach-xem-truoc-anh" class="luoi-xem-truoc-anh"></div>
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalThemPhong()">Hủy Bỏ</button>
+                    <button type="submit" class="nut-chinh">💾 Lưu Phòng Trọ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 3: SỔ TAY THIẾT BỊ PHÒNG (CẢNH BÁO >60% KHẤU HAO) -->
+    <!-- ======================================================== -->
+    <div id="modal-thiet-bi" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 820px;">
+            <div class="tieu-de-modal">
+                <div>
+                    <h3 id="tieu-de-modal-tb">Sổ Tay Thiết Bị Phòng</h3>
+                    <div class="dieu-huong-vi-tri-modal" id="vi-tri-modal-tb">Tòa nhà ➔ Tầng ➔ Phòng</div>
+                </div>
+                <button onclick="dongModalThietBi()" class="nut-dong-modal">✕</button>
+            </div>
+            <div class="noi-dung-modal">
+                <div class="thanh-thong-tin-quy-tac-tb">
+                    <div class="icon-quy-tac">💡</div>
+                    <div class="noi-dung-quy-tac">
+                        <strong>Quy tắc khấu hao thiết bị doanh nghiệp:</strong> Khi chi phí sửa chữa lũy kế đạt hoặc vượt <b>60% giá trị ban đầu</b>, hệ thống sẽ tự động chuyển trạng thái <span class="nhan-canh-bao-do">🚨 ĐỀ XUẤT MUA MỚI</span> để chủ doanh nghiệp thay thế kịp thời.
+                    </div>
+                    <button class="nut-chinh" onclick="hienFormThemTB()">+ Thêm Thiết Bị</button>
+                </div>
+
+                <!-- Form thêm thiết bị mới vào phòng này -->
+                <div id="form-nhap-thiet-bi" style="display:none; background:#f0fdf4; border:1.5px solid #a7f3d0; padding:14px; border-radius:10px; margin-bottom:16px;">
+                    <div style="font-weight:700; color:#065f46; font-size:13px; margin-bottom:8px;">+ Thêm thiết bị mới vào phòng này:</div>
+                    <div class="hang-doi">
+                        <input type="text" id="ten-tb-moi" placeholder="Tên thiết bị (Ví dụ: Máy sấy tóc, Tivi Sony 50 inch...)">
+                        <input type="number" id="gia-tri-tb-moi" placeholder="Giá trị thiết bị (VND)">
+                    </div>
+                    <div style="display:flex; gap:8px; margin-top:10px;">
+                        <button type="button" class="nut-chinh" onclick="luuThietBiMoi()">Lưu Thiết Bị</button>
+                        <button type="button" class="nut-phu" onclick="hienFormThemTB()">Đóng</button>
+                    </div>
+                </div>
+
+                <!-- Bảng danh sách thiết bị trong phòng -->
+                <div class="khung-bang-cao-cap">
+                    <table class="bang-du-lieu">
+                        <thead>
+                            <tr>
+                                <th>Tên Thiết Bị</th>
+                                <th>Giá Gốc</th>
+                                <th>Sửa Lũy Kế</th>
+                                <th>Khấu Hao (%)</th>
+                                <th>Trạng Thái</th>
+                                <th>Bảo Trì</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bang-thiet-bi">
+                            <!-- Render JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 4: BẢN ĐỒ TIỆN ÍCH LEAFLET 2KM -->
+    <!-- ======================================================== -->
+    <div id="modal-ban-do" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 820px; width: 95%;">
+            <div class="tieu-de-modal">
+                <h3 id="tieu-de-ban-do">Bản Đồ Tiện Ích Bán Kính 2km Quanh Phòng</h3>
+                <button onclick="dongModalBanDo()" class="nut-dong-modal">✕</button>
+            </div>
+            <div class="noi-dung-modal">
+                <div id="ban-do-leaflet" style="height: 440px; width: 100%; border-radius: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS & Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="/tien_ich_dung_chung/dia_chinh_viet_nam.js"></script>
+    <script src="phong_tro.js"></script>
+</body>
+</html>

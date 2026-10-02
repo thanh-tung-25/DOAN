@@ -1,0 +1,89 @@
+.khung-chat-khach {
+    background: #ffffff;
+    border: 1px solid var(--mau-vien-ngoc);
+    border-radius: var(--ban-kinh-bo-goc);
+    box-shadow: var(--do-bong-noi);
+    height: calc(100vh - 150px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dau-khung-chat {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--mau-vien-ngoc);
+    background: var(--mau-ngoc-nen);
+}
+
+.dau-khung-chat h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--mau-ngoc-dam);
+}
+
+.vung-tin-nhan-khach {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background: linear-gradient(180deg, #f0fdf4 0%, #f8fafc 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.bong-tin {
+    max-width: 70%;
+    padding: 12px 18px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.tin-chu {
+    align-self: flex-start;
+    background: #ffffff;
+    color: #1e293b;
+    border: 1px solid var(--mau-vien);
+    border-bottom-left-radius: 4px;
+}
+
+.tin-khach {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.gio-tin {
+    display: block;
+    font-size: 10px;
+    opacity: 0.75;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.form-chat-khach {
+    display: flex;
+    padding: 16px 24px;
+    border-top: 1px solid var(--mau-vien-ngoc);
+    background: #ffffff;
+    gap: 12px;
+}
+
+.form-chat-khach input {
+    flex: 1;
+    border: 1.5px solid var(--mau-vien-ngoc);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+.form-chat-khach input:focus {
+    border-color: var(--mau-chinh);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}

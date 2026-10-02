@@ -1,0 +1,12 @@
+.khung-canvas-wrap {
+    background: #ffffff;
+    border: 2px dashed #94a3b8;
+    border-radius: 8px;
+    display: inline-block;
+    cursor: crosshair;
+}
+
+#canvas-khach-ky {
+    display: block;
+    touch-action: none;
+}

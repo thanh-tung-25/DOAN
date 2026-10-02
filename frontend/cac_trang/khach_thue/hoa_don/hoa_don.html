@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn Của Tôi & VietQR - Khách Thuê</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/widget_tro_ly_ao/widget_tro_ly_ao.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="hoa_don.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-khach_thue">Khách thuê</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">CỔNG KHÁCH THUÊ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Hóa Đơn Tiền Phòng & Thanh Toán VietQR Động</h1>
+                    <p>Minh bạch chỉ số tiêu thụ điện nước, quét mã QR ngân hàng hoặc chia bill "Campuchia" khi ở ghép</p>
+                </div>
+            </div>
+
+            <div class="khung-bang">
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Kỳ hóa đơn</th>
+                            <th>Tiền phòng</th>
+                            <th>Điện tiêu thụ</th>
+                            <th>Nước tiêu thụ</th>
+                            <th>Tổng thanh toán</th>
+                            <th>Trạng thái</th>
+                            <th>Thanh toán VietQR</th>
+                            <th>Gửi biên lai</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-hoa-don-khach">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Quet VietQR & Chia Bill -->
+    <div id="modal-vietqr-khach" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 550px;">
+            <div class="tieu-de-modal">
+                <h3>Thanh Toán Qua App Ngân Hàng (VietQR)</h3>
+                <button onclick="dongModalVietQRKhach()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="noi-dung-modal" style="text-align: center;">
+                <p style="font-size:13px; color:#64748b; margin-bottom:12px;">Mở ứng dụng Mobile Banking bất kỳ quét mã để thanh toán tức thì:</p>
+                <img id="img-vietqr-khach" src="" alt="Mã VietQR" style="max-width: 280px; border-radius: 8px; border: 1px solid #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+
+                <div id="vung-chia-bill-khach" style="margin-top: 16px; border-top: 1px dashed #cbd5e1; padding-top: 12px; text-align: left;">
+                    <p style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:8px;">👥 Phần tiền thanh toán chia bill của phòng:</p>
+                    <div id="danh-sach-chia-khach"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Gui Bien Lai Bill -->
+    <div id="modal-gui-bill" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 480px;">
+            <div class="tieu-de-modal">
+                <h3>Tải Lên Biên Lai Chuyển Khoản</h3>
+                <button onclick="dongModalGuiBill()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="noi-dung-modal">
+                <p style="font-size:13px; color:#64748b; margin-bottom:12px;">Chụp ảnh màn hình giao dịch chuyển khoản thành công và tải lên để chủ trọ duyệt gạch nợ:</p>
+                <input type="file" id="tep-anh-bill" accept="image/*" style="width: 100%; border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px;">
+            </div>
+            <div class="chan-modal">
+                <button type="button" class="nut-phu" onclick="dongModalGuiBill()">Hủy</button>
+                <button type="button" class="nut-chinh" onclick="xacNhanGuiBill()">Gửi Biên Lai</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nut SOS -->
+    <div id="vung-nut-sos" class="vung-nut-sos">
+        <button id="nut-bam-sos" class="nut-bam-sos"><span class="chu-sos">SOS</span><span class="nhan-sos">CỨU HỘ</span></button>
+    </div>
+
+    <!-- Widget Bot -->
+    <div id="widget-tro-ly-ao" class="widget-tro-ly-ao">
+        <button id="nut-mo-chatbot" class="nut-mo-chatbot"><span class="icon-bot">🤖</span><span class="nhan-bot">Hỏi đáp</span></button>
+        <div id="khung-chat-bot" class="khung-chat-bot" style="display: none;">
+            <div class="bot-dau">
+                <div class="bot-thong-tin"><span class="bot-avatar">🤖</span><div><h4 class="bot-ten">Trợ Lý Ảo</h4><span class="bot-trang-thai">Online</span></div></div>
+                <button id="nut-dong-bot" class="nut-dong-bot">✕</button>
+            </div>
+            <div id="vung-tin-nhan-bot" class="vung-tin-nhan-bot"><div class="tin-nhan tin-nhan-bot">Chào bạn! Bạn cần hỗ trợ gì về cách tính tiền hay chuyển khoản không?</div></div>
+            <form id="form-gui-bot" class="bot-chan"><input type="text" id="nhap-cau-hoi-bot" placeholder="Nhập câu hỏi..."><button type="submit">Gửi</button></form>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.js"></script>
+    <script src="/thanh_phan_dung_chung/widget_tro_ly_ao/widget_tro_ly_ao.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="hoa_don.js"></script>
+</body>
+</html>

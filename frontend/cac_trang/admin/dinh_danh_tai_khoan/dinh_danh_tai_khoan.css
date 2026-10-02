@@ -1,0 +1,54 @@
+.thanh-tab {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--mau-vien);
+    padding-bottom: 8px;
+}
+
+.nut-tab {
+    padding: 10px 18px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.nut-tab.kich-hoat {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.thanh-bo-loc {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.thanh-bo-loc input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--mau-vien);
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+}
+
+.thanh-bo-loc select {
+    padding: 10px 14px;
+    border: 1px solid var(--mau-vien);
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    background: #ffffff;
+}
+
+.nhom-nut-hanh-dong {
+    display: flex;
+    gap: 6px;
+}

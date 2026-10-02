@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghi Chỉ Số & Thu Tiền Mặt - Nhân Viên</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="chi_so_hoa_don.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (NHÂN VIÊN)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-nhan_vien">Nhân viên</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">VẬN HÀNH THỰC ĐỊA</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Chỉ Số Điện Nước & Thu Tiền Mặt</h1>
+                    <p>Nhập số đồng hồ trực tiếp tại cửa phòng, xác nhận thu tiền mặt (ghi Audit Log) và in biên lai nhiệt</p>
+                </div>
+            </div>
+
+            <div class="khung-bang">
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Kỳ bill</th>
+                            <th>Điện (Cũ ➔ Mới)</th>
+                            <th>Nước (Cũ ➔ Mới)</th>
+                            <th>Tổng thanh toán</th>
+                            <th>Trạng thái</th>
+                            <th>Nghiệp vụ thực địa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-nhan-vien-bill">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal In Bien Lai Giay Nhiet -->
+    <div id="modal-in-bien-lai" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 420px;">
+            <div class="tieu-de-modal">
+                <h3>Biên Lai Thu Tiền Mặt</h3>
+                <button onclick="dongModalIn()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="noi-dung-modal" id="vung-giay-in-nhiet" style="font-family: monospace; font-size: 13px; line-height: 1.6; border: 1px dashed #cbd5e1; padding: 16px; background: #fff;">
+                <div style="text-align: center; border-bottom: 1px dashed #000; padding-bottom: 8px;">
+                    <strong>KHU TRỌ XANH SÀI GÒN</strong><br>
+                    123 Nguyễn Thị Thập, Quận 7, TP.HCM<br>
+                    <strong>PHIẾU THU TIỀN MẶT</strong>
+                </div>
+                <div style="margin: 12px 0;">
+                    Phòng: <strong id="in-phong">P.101</strong><br>
+                    Khách thuê: <span id="in-khach">Lê Thị Thu</span><br>
+                    Kỳ hóa đơn: <span id="in-ky">Tháng 9/2026</span><br>
+                    Số tiền: <strong id="in-tien" style="font-size: 15px;">4.182.500 đ</strong><br>
+                    Hình thức: <span style="font-weight: bold;">TIỀN MẶT</span><br>
+                    Nhân viên thu: <span>Trần Văn Quản</span><br>
+                    Thời gian: <span id="in-gio">Vừa xong</span>
+                </div>
+                <div style="text-align: center; border-top: 1px dashed #000; padding-top: 8px; font-style: italic;">
+                    Cảm ơn quý khách! Chúc quý khách một ngày tốt lành!
+                </div>
+            </div>
+            <div class="chan-modal">
+                <button type="button" class="nut-phu" onclick="dongModalIn()">Đóng</button>
+                <button type="button" class="nut-chinh" onclick="window.print()">🖨️ In Hóa Đơn</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Canh bao SOS cho nhan vien -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="chi_so_hoa_don.js"></script>
+</body>
+</html>

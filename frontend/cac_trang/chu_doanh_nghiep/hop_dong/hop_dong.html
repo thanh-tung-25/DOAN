@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Hợp Đồng & Ký Số - Chủ Trọ</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="hop_dong.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (CHỦ TRỌ)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-chu_doanh_nghiep">Chủ trọ</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ CHỦ TRỌ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Hợp Đồng Thuê & Ký Số Điện Tử</h1>
+                    <p>Khởi tạo hợp đồng, người ở ghép, ký nét vẽ Canvas trực tiếp và gia hạn 1-Click</p>
+                </div>
+                <button class="nut-chinh" onclick="moModalLapHopDong()">+ Khởi Tạo Hợp Đồng Mới</button>
+            </div>
+
+            <div class="khung-bang">
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Mã HĐ</th>
+                            <th>Phòng / Khu trọ</th>
+                            <th>Khách thuê đại diện</th>
+                            <th>Người ở ghép</th>
+                            <th>Giá thuê & Cọc</th>
+                            <th>Thời hạn thuê</th>
+                            <th>Trạng thái</th>
+                            <th>Chữ ký điện tử</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-hop-dong">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Lap Hop Dong -->
+    <div id="modal-lap-hd" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 650px;">
+            <div class="tieu-de-modal">
+                <h3>Soạn Thảo Hợp Đồng Thuê Phòng Mới</h3>
+                <button onclick="dongModalLapHD()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <form id="form-lap-hd" onsubmit="xuLyLapHD(event)">
+                <div class="noi-dung-modal">
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Chọn phòng trọ</label>
+                            <select id="hd-phong" required></select>
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Khách thuê đại diện</label>
+                            <select id="hd-khach" required></select>
+                        </div>
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Giá thuê (VND/tháng)</label>
+                            <input type="number" id="hd-gia-thue" required placeholder="3500000">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Tiền đặt cọc (VND)</label>
+                            <input type="number" id="hd-tien-coc" required placeholder="3500000">
+                        </div>
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Ngày bắt đầu</label>
+                            <input type="date" id="hd-ngay-bat-dau" required>
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Ngày kết thúc</label>
+                            <input type="date" id="hd-ngay-ket-thuc" required>
+                        </div>
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Thông tin người ở ghép (Họ tên, SĐT, CCCD nếu có)</label>
+                        <input type="text" id="hd-nguoi-o-ghep" placeholder="Ví dụ: Trần Kim Ngân - 0901234567 - 079201002233">
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalLapHD()">Hủy</button>
+                    <button type="submit" class="nut-chinh">Tạo Hợp Đồng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ky So Canvas -->
+    <div id="modal-ky-canvas" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 500px;">
+            <div class="tieu-de-modal">
+                <h3 id="tieu-de-ky">Ký Số Điện Tử HTML5 Canvas</h3>
+                <button onclick="dongModalKy()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="noi-dung-modal" style="text-align: center;">
+                <p style="font-size:13px; color:#64748b; margin-bottom:12px;">Vui lòng dùng chuột hoặc ngón tay để ký tên trực tiếp vào khung dưới:</p>
+                <div class="khung-canvas-wrap">
+                    <canvas id="canvas-ky-ten" width="440" height="180"></canvas>
+                </div>
+                <div style="margin-top: 10px; display: flex; justify-content: space-between;">
+                    <button type="button" class="nut-phu" onclick="xoaNetVe()">Xóa nét vẽ lại</button>
+                    <button type="button" class="nut-chinh" onclick="xacNhanLuuChuKy()">Xác Nhận Ký Tên</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Canh bao SOS cho chu tro -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/chu_ky_canvas.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="hop_dong.js"></script>
+</body>
+</html>

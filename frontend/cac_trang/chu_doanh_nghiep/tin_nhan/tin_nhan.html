@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Nhắn Trực Tiếp - Chủ Trọ</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="tin_nhan.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (CHỦ TRỌ)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-chu_doanh_nghiep">Chủ trọ</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ CHỦ TRỌ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="khung-chat-toan-dien">
+                <!-- Danh sach nguoi hoi thoai -->
+                <div class="cot-danh-sach-hoi-thoai">
+                    <div class="dau-cot-chat">
+                        <h3>Hộp Thư Trực Tuyến</h3>
+                    </div>
+                    <div id="danh-sach-ban-chat" class="danh-sach-ban-chat">
+                        <div style="padding: 24px; text-align: center; color: #64748b; font-size: 13px;">
+                            Đang tải danh sách khách thuê...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khung noi dung tro chuyen -->
+                <div class="cot-khung-chat-chinh">
+                    <div class="dau-khung-chat-chinh">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <h3 id="ten-nguoi-dang-chat">Chọn người trò chuyện</h3>
+                            <span id="sdt-nguoi-dang-chat" style="font-size: 13px; color: #64748b;"></span>
+                            <span id="trang-thai-typing" class="trang-thai-dang-go" style="display: none;">Đang soạn tin...</span>
+                        </div>
+                    </div>
+
+                    <div id="vung-tin-nhan-chat" class="vung-tin-nhan-chat">
+                        <div style="padding: 40px; text-align: center; color: #94a3b8; font-size: 14px;">
+                            Chọn một khách thuê bên trái để bắt đầu trò chuyện
+                        </div>
+                    </div>
+
+                    <form id="form-gui-tin-chat" class="form-nhap-chat" onsubmit="xuLyGuiTin(event)">
+                        <input type="text" id="nhap-tin-nhan" placeholder="Nhập tin nhắn..." autocomplete="off">
+                        <button type="submit" class="nut-chinh">Gửi Tin</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Canh bao SOS cho chu tro -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/tien_ich_dung_chung/thong_bao_dep.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="tin_nhan.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm Phòng Trọ & Ở Ghép - Khách Thuê</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/widget_tro_ly_ao/widget_tro_ly_ao.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="tim_phong.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-khach_thue">Khách thuê</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">CỔNG KHÁCH THUÊ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="banner-tim-kiem">
+                <h1>Tìm Kiếm Phòng Trọ Giá Tốt & Tiện Nghi</h1>
+                <p>Khám phá hàng ngàn phòng trọ xác thực (KYC), ký hợp đồng điện tử và chia bill thanh toán tiện lợi</p>
+
+                <!-- Bo loc nhanh -->
+                <div class="thanh-tim-kiem-hop">
+                    <input type="text" id="tu-khoa-phong" placeholder="Nhập địa chỉ, trường đại học hoặc khu vực...">
+                    <select id="loc-khoang-gia">
+                        <option value="">Khoảng giá (Tất cả)</option>
+                        <option value="0-3000000">Dưới 3 triệu</option>
+                        <option value="3000000-5000000">Từ 3 - 5 triệu</option>
+                        <option value="5000000-10000000">Trên 5 triệu</option>
+                    </select>
+                    <select id="loc-o-ghep">
+                        <option value="">Tất cả phòng</option>
+                        <option value="1">Cho phép ở ghép 🤝</option>
+                    </select>
+                    <button class="nut-chinh" onclick="timKiemPhong()">Tìm Phòng</button>
+                </div>
+            </div>
+
+            <!-- Danh sach tin dang phong -->
+            <div class="tieu-de-trang" style="margin-top: 30px;">
+                <h2>Danh Sách Phòng Đang Cho Thuê</h2>
+            </div>
+
+            <div id="danh-sach-phong-tim" class="luoi-bai-dang">
+                <!-- Render bang JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Nut SOS Noi Toan Cuc -->
+    <div id="vung-nut-sos" class="vung-nut-sos">
+        <button id="nut-bam-sos" class="nut-bam-sos" title="Báo động khẩn cấp SOS">
+            <span class="chu-sos">SOS</span>
+            <span class="nhan-sos">CỨU HỘ</span>
+        </button>
+    </div>
+
+    <!-- Widget Chatbot FAQ -->
+    <div id="widget-tro-ly-ao" class="widget-tro-ly-ao">
+        <button id="nut-mo-chatbot" class="nut-mo-chatbot">
+            <span class="icon-bot">🤖</span>
+            <span class="nhan-bot">Hỏi đáp</span>
+        </button>
+        <div id="khung-chat-bot" class="khung-chat-bot" style="display: none;">
+            <div class="bot-dau">
+                <div class="bot-thong-tin">
+                    <span class="bot-avatar">🤖</span>
+                    <div>
+                        <h4 class="bot-ten">Trợ Lý Ảo Phòng Trọ</h4>
+                        <span class="bot-trang-thai">Trả lời tự động 24/7</span>
+                    </div>
+                </div>
+                <button id="nut-dong-bot" class="nut-dong-bot">✕</button>
+            </div>
+            <div id="vung-tin-nhan-bot" class="vung-tin-nhan-bot">
+                <div class="tin-nhan tin-nhan-bot">
+                    Xin chào! Tôi có thể giải đáp các thắc mắc thường gặp về <b>Wifi</b>, <b>Giờ giấc</b>, <b>Điện nước</b> hoặc <b>PCCC</b>!
+                </div>
+            </div>
+            <form id="form-gui-bot" class="bot-chan">
+                <input type="text" id="nhap-cau-hoi-bot" placeholder="Nhập câu hỏi..." autocomplete="off">
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/tien_ich_dung_chung/thong_bao_dep.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.js"></script>
+    <script src="/thanh_phan_dung_chung/widget_tro_ly_ao/widget_tro_ly_ao.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="tim_phong.js"></script>
+</body>
+</html>

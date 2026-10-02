@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng Quan Vận Hành Thực Địa - Nhân Viên</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="tong_quan_van_hanh.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (NHÂN VIÊN)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-nhan_vien">Nhân viên</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">VẬN HÀNH THỰC ĐỊA</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Bảng Vận Hành Khu Vực Phân Công</h1>
+                    <p>Khu vực quản lý: <strong id="ten-khu-giao" style="color:var(--mau-chinh);">Khu Trọ Xanh Sài Gòn (Quận 7)</strong></p>
+                </div>
+            </div>
+
+            <!-- KPI Cuc Bo Cua Nhan Vien -->
+            <div class="the-thong-ke-grid">
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#ecfdf5; color:#059669;">🗝️</div>
+                    <div>
+                        <div id="nv-kpi-phong-trong" class="chi-so-kpi">2</div>
+                        <div class="nhan-kpi">Phòng đang trống</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#fee2e2; color:#dc2626;">🧾</div>
+                    <div>
+                        <div id="nv-kpi-hoa-don-treo" class="chi-so-kpi">1</div>
+                        <div class="nhan-kpi">Hóa đơn chưa thu tiền</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#fef3c7; color:#d97706;">🔧</div>
+                    <div>
+                        <div id="nv-kpi-su-co-cho" class="chi-so-kpi">1</div>
+                        <div class="nhan-kpi">Sự cố chờ sửa chữa</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- To-Do List Viec Can Lam Ngay -->
+            <div class="khung-the-noi-dung" style="margin-top: 20px;">
+                <h3 style="margin-bottom: 16px;">📋 Lịch Trình Công Việc Cần Làm Hôm Nay (To-Do List)</h3>
+                <ul class="danh-sach-todo">
+                    <li class="todo-item">
+                        <input type="checkbox" id="td-1" checked>
+                        <label for="td-1">
+                            <strong>Chốt chỉ số điện nước cuối cùng P.101</strong> (Hôm nay khách nộp tiền)
+                        </label>
+                    </li>
+                    <li class="todo-item">
+                        <input type="checkbox" id="td-2">
+                        <label for="td-2">
+                            <strong>Sửa chữa bóng đèn nhà vệ sinh P.101</strong> (Đang chờ vật tư thay thế)
+                        </label>
+                    </li>
+                    <li class="todo-item">
+                        <input type="checkbox" id="td-3">
+                        <label for="td-3">
+                            <strong>Dọn vệ sinh phòng P.102</strong> đón khách thuê mới check-in nhận chìa khóa
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Canh bao SOS cho nhan vien -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="tong_quan_van_hanh.js"></script>
+</body>
+</html>

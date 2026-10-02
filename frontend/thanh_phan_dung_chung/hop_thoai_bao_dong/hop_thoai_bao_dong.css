@@ -1,0 +1,95 @@
+.man-hinh-chop-do-sos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(220, 38, 38, 0.45);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: chop-do-toan-man-hinh 0.7s infinite alternate;
+    backdrop-filter: blur(8px);
+}
+
+.hop-canh-bao-trung-tam {
+    background: #ffffff;
+    border: 5px solid #dc2626;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 520px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(220, 38, 38, 0.9);
+    animation: rung-lac-sos 0.5s infinite;
+}
+
+.icon-canh-bao-dong {
+    font-size: 64px;
+    animation: quay-nhe 1s infinite alternate;
+}
+
+.tieu-de-khan-cap {
+    color: #b91c1c;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 12px 0 20px 0;
+    letter-spacing: 0.5px;
+}
+
+.chi-tiet-sos {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.dong-thong-tin {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.noi-dung-nhan {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.nut-xac-nhan-sos {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    background: #dc2626;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+    transition: background 0.2s;
+}
+
+.nut-xac-nhan-sos:hover {
+    background: #b91c1c;
+}
+
+@keyframes chop-do-toan-man-hinh {
+    0% { background: rgba(220, 38, 38, 0.2); }
+    100% { background: rgba(220, 38, 38, 0.7); }
+}
+
+@keyframes rung-lac-sos {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes quay-nhe {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}

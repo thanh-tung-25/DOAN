@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm Duyệt Nội Dung - Admin</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="kiem_duyet_noi_dung.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (ADMIN)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-admin">Admin</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ VIÊN</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Kiểm Duyệt Nội Dung & Giải Quyết Khiếu Nại (Content Moderation)</h1>
+                    <p>Kiểm duyệt tin đăng, phân tích tin ảo, gỡ bài vi phạm & khôi phục bài đăng khiếu nại</p>
+                </div>
+            </div>
+
+            <div class="khung-bang">
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tiêu đề tin đăng</th>
+                            <th>Chủ trọ</th>
+                            <th>Giá thuê</th>
+                            <th>Lượt báo cáo</th>
+                            <th>Trạng thái</th>
+                            <th>Lý do vi phạm</th>
+                            <th>Hành động kiểm duyệt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-kiem-duyet">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="kiem_duyet_noi_dung.js"></script>
+</body>
+</html>

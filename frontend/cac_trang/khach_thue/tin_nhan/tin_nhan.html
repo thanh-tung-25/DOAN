@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hộp Thư & Chat Trực Tiếp Với Chủ Trọ - Khách Thuê</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="/cac_trang/chu_doanh_nghiep/tin_nhan/tin_nhan.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-khach_thue">Khách thuê</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">CỔNG KHÁCH THUÊ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="khung-chat-toan-dien">
+                <!-- Danh sach chu tro da hoi thoai -->
+                <div class="cot-danh-sach-hoi-thoai">
+                    <div class="dau-cot-chat">
+                        <h3>Hộp Thư Chủ Trọ</h3>
+                    </div>
+                    <div id="danh-sach-ban-chat" class="danh-sach-ban-chat">
+                        <div style="padding: 24px; text-align: center; color: #64748b; font-size: 13px;">
+                            Đang tải danh sách hội thoại...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khung noi dung chat Messenger -->
+                <div class="cot-khung-chat-chinh">
+                    <div class="dau-khung-chat-chinh">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="avatar-chat" style="width:36px; height:36px; font-size:14px;">🏢</div>
+                            <div>
+                                <h3 id="ten-nguoi-dang-chat" style="margin:0; font-size:15px; color:#064e3b;">Đang kết nối...</h3>
+                                <small id="sdt-nguoi-dang-chat" style="color:#059669; font-weight:600;"></small>
+                            </div>
+                        </div>
+                        <span id="trang-thai-typing" class="trang-thai-dang-go" style="display: none;">Đang soạn tin...</span>
+                    </div>
+
+                    <div id="vung-tin-nhan-chat" class="vung-tin-nhan-chat">
+                        <div style="text-align: center; padding: 40px; color: #94a3b8; font-size: 13px;">
+                            Chọn một cuộc hội thoại bên trái hoặc đăng ký ở ghép từ bài đăng để bắt đầu trò chuyện.
+                        </div>
+                    </div>
+
+                    <form id="form-gui-tin-chat" class="form-nhap-chat" onsubmit="xuLyGuiTin(event)">
+                        <input type="text" id="nhap-tin-nhan" placeholder="Nhập tin nhắn..." autocomplete="off" required>
+                        <button type="submit" class="nut-chinh" id="nut-gui-tin">Gửi Tin</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Nut SOS -->
+    <div id="vung-nut-sos" class="vung-nut-sos">
+        <button id="nut-bam-sos" class="nut-bam-sos"><span class="chu-sos">SOS</span><span class="nhan-sos">CỨU HỘ</span></button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/tien_ich_dung_chung/thong_bao_dep.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="tin_nhan.js"></script>
+</body>
+</html>

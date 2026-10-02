@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Hóa Đơn & VietQR - Chủ Trọ</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="hoa_don.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (CHỦ TRỌ)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-chu_doanh_nghiep">Chủ trọ</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ CHỦ TRỌ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Hóa Đơn & Thu Tiền (VietQR & Chia Bill)</h1>
+                    <p>Lập bill điện nước (cảnh báo bất thường x3), mã QR động, chia bill Campuchia & đối soát biên lai</p>
+                </div>
+                <button class="nut-chinh" onclick="moModalLapHoaDon()">+ Lập Hóa Đơn Mới</button>
+            </div>
+
+            <div class="khung-bang">
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Kỳ bill</th>
+                            <th>Phòng</th>
+                            <th>Chỉ số Điện (kWh)</th>
+                            <th>Chỉ số Nước (m³)</th>
+                            <th>Tổng thanh toán</th>
+                            <th>Cảnh báo rò rỉ</th>
+                            <th>Trạng thái</th>
+                            <th>Mã VietQR & Chia bill</th>
+                            <th>Biên lai & Đối soát</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-hoa-don">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Lap Hoa Don -->
+    <div id="modal-lap-bill" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 600px;">
+            <div class="tieu-de-modal">
+                <h3>Lập Hóa Đơn Tháng Mới</h3>
+                <button onclick="dongModalLapBill()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <form id="form-lap-bill" onsubmit="xuLyLapBill(event)">
+                <div class="noi-dung-modal">
+                    <div class="nhom-nhap">
+                        <label>Chọn Hợp Đồng / Phòng trọ</label>
+                        <select id="bill-hop-dong" required></select>
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Tháng</label>
+                            <input type="number" id="bill-thang" min="1" max="12" value="9" required>
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Năm</label>
+                            <input type="number" id="bill-nam" value="2026" required>
+                        </div>
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Số điện cũ</label>
+                            <input type="number" id="bill-dien-cu" value="0" required oninput="tinhTienThoiGianThuc()">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Số điện mới</label>
+                            <input type="number" id="bill-dien-moi" value="0" required oninput="tinhTienThoiGianThuc()">
+                        </div>
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Số nước cũ</label>
+                            <input type="number" id="bill-nuoc-cu" value="0" required oninput="tinhTienThoiGianThuc()">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Số nước mới</label>
+                            <input type="number" id="bill-nuoc-moi" value="0" required oninput="tinhTienThoiGianThuc()">
+                        </div>
+                    </div>
+
+                    <!-- Bảng tính tiền xem trước trực quan -->
+                    <div id="hop-xem-truoc-tien" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px; margin-top:10px;">
+                        <h4 style="margin:0 0 8px 0; font-size:13px; color:#1e293b;">📊 BẢNG TÍNH TIỀN THỰC TẾ (XEM TRƯỚC THEO CÔNG TƠ):</h4>
+                        <div style="font-size:13px; line-height:1.7; color:#334155;">
+                            <div>🏠 Tiền phòng: <strong id="pv-tien-phong">0 đ</strong></div>
+                            <div>⚡ Tiền điện: <strong id="pv-tieu-thu-dien">0 kWh</strong> × <span id="pv-don-gia-dien">0 đ</span> = <strong id="pv-tien-dien">0 đ</strong></div>
+                            <div>💧 Tiền nước: <strong id="pv-tieu-thu-nuoc">0 m³</strong> × <span id="pv-don-gia-nuoc">0 đ</span> = <strong id="pv-tien-nuoc">0 đ</strong></div>
+                            <div>🧹 Phí dịch vụ: <strong id="pv-phi-dv">0 đ</strong></div>
+                            <div style="border-top:1px solid #cbd5e1; margin-top:8px; padding-top:6px; font-size:15px; color:#1e293b;">
+                                💰 TỔNG CỘNG PHẢI THU: <strong id="pv-tong-cong" style="font-size:18px; color:#dc2626;">0 đ</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalLapBill()">Hủy</button>
+                    <button type="submit" class="nut-chinh">Lưu Hóa Đơn Vào MySQL</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Xem VietQR & Chia Bill Campuchia -->
+    <div id="modal-vietqr" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 600px;">
+            <div class="tieu-de-modal">
+                <h3>Thanh Toán VietQR Động & Chia Bill ("Campuchia")</h3>
+                <button onclick="dongModalVietQR()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="noi-dung-modal" style="text-align: center;">
+                <div id="vung-qr-chinh">
+                    <p style="font-size: 13px; color: #475569; margin-bottom: 8px;">Quét mã chuyển khoản nhanh tự động khớp số tiền & nội dung:</p>
+                    <img id="img-qr-dong" src="" alt="Mã VietQR" style="max-width: 280px; border-radius: 8px; border: 1px solid #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                </div>
+
+                <div style="margin-top: 20px; border-top: 1px dashed #cbd5e1; padding-top: 16px; text-align: left;">
+                    <div style="margin-bottom: 12px;">
+                        <strong>🤝 Chia bill cho người ở ghép (nhập danh sách người thật):</strong>
+                        <div style="display:flex; gap:8px; margin-top:8px;">
+                            <input type="text" id="nhap-ten-nguoi-chia" placeholder="Nhập tên người cùng phòng (cách nhau dấu phẩy, VD: Nam, Lan, Tuấn)" style="flex:1; border:1px solid #cbd5e1; border-radius:6px; padding:8px 10px;">
+                            <button class="nut-chinh" style="white-space:nowrap;" onclick="thucHienChiaBillCampuchia()">Chia tiền ngay</button>
+                        </div>
+                    </div>
+                    <div id="danh-sach-chia-bill-render"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Canh bao SOS cho chu tro -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="hoa_don.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+/* ====================================================================
+   THANH CÔNG CỤ BÊN (LUXURY OBSIDIAN EMERALD SIDEBAR)
+   ==================================================================== */
+.thanh-ben {
+    width: 275px;
+    background: linear-gradient(180deg, #021a14 0%, #03140e 55%, #010c08 100%);
+    color: #f0fdf4;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 70px);
+    position: sticky;
+    top: 70px;
+    flex-shrink: 0;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-right: 1.5px solid rgba(52, 211, 153, 0.16);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    z-index: 99;
+}
+
+/* Header thương hiệu nhỏ đầu sidebar */
+.tieu-de-phan-he {
+    padding: 18px 20px 10px 20px;
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    color: #34d399;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.tieu-de-phan-he::before {
+    content: "◈";
+    color: #10b981;
+    font-size: 13px;
+    text-shadow: 0 0 8px #10b981;
+}
+
+/* Danh sách menu cuộn mượt mà */
+.danh-sach-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+}
+
+.danh-sach-menu::-webkit-scrollbar {
+    width: 5px;
+}
+
+.danh-sach-menu::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: 9999px;
+}
+
+.danh-sach-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Tiêu đề từng phân nhóm danh mục */
+.nhom-menu-tieu-de {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    text-transform: uppercase;
+    padding: 14px 12px 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+}
+
+.nhom-menu-tieu-de::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Từng thẻ liên kết menu */
+.danh-sach-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    border: 1px solid transparent;
+}
+
+/* Khung icon bo góc phát sáng nhẹ */
+.icon-hop-ben {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #6ee7b7;
+    flex-shrink: 0;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.danh-sach-menu li a:hover {
+    background: rgba(16, 185, 129, 0.12);
+    color: #f0fdf4;
+    transform: translateX(4px);
+    border-color: rgba(52, 211, 153, 0.2);
+}
+
+.danh-sach-menu li a:hover .icon-hop-ben {
+    background: rgba(16, 185, 129, 0.24);
+    border-color: #34d399;
+    color: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Trạng thái Menu đang kích hoạt (Active) */
+.danh-sach-menu li a.kich-hoat {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #ffffff;
+    font-weight: 750;
+    box-shadow: 0 8px 24px -4px rgba(5, 150, 105, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.danh-sach-menu li a.kich-hoat::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 4px;
+    background: #ffffff;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 0 10px #ffffff;
+}
+
+.danh-sach-menu li a.kich-hoat .icon-hop-ben {
+    background: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.45);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tag nhãn đặc biệt trên menu */
+.menu-tag-badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.25);
+    color: #6ee7b7;
+    border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.menu-tag-badge.canh-bao-sos {
+    background: rgba(225, 29, 72, 0.9);
+    color: #ffffff;
+    border-color: #f43f5e;
+    animation: nhap-nhay 1.5s infinite alternate;
+}
+
+/* THẺ PROFILE DƯỚI ĐÁY THANH BÊN */
+.the-nguoi-dung-thanh-ben {
+    margin: 10px 14px 14px 14px;
+    padding: 11px 13px;
+    background: rgba(4, 28, 20, 0.85);
+    border: 1.5px solid rgba(52, 211, 153, 0.22);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+}
+
+.the-nguoi-dung-thanh-ben:hover {
+    border-color: rgba(52, 211, 153, 0.45);
+    background: rgba(6, 38, 28, 0.92);
+}
+
+.avatar-nguoi-dung-ben {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #ffffff;
+    font-weight: 850;
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+    position: relative;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+.cham-online-ben {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 10px;
+    height: 10px;
+    background: #22c55e;
+    border: 2px solid #03140e;
+    border-radius: 50%;
+}
+
+.thong-tin-nguoi-dung-ben {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    line-height: 1.25;
+}
+
+.ten-nguoi-dung-ben {
+    font-size: 13px;
+    font-weight: 800;
+    color: #f0fdf4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vai-tro-nguoi-dung-ben {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #34d399;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* Trạng thái thu gọn Sidebar khi bấm toggle */
+.thanh-ben.thu-gon {
+    width: 80px;
+}
+
+.thanh-ben.thu-gon .tieu-de-phan-he,
+.thanh-ben.thu-gon .nhom-menu-tieu-de,
+.thanh-ben.thu-gon .chu,
+.thanh-ben.thu-gon .menu-tag-badge,
+.thanh-ben.thu-gon .thong-tin-nguoi-dung-ben {
+    display: none;
+}
+
+.thanh-ben.thu-gon .danh-sach-menu li a {
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.thanh-ben.thu-gon .the-nguoi-dung-thanh-ben {
+    justify-content: center;
+    padding: 8px 0;
+    margin: 8px;
+}
+

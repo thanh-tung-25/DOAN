@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Nhân Viên & Phân Khu - Chủ Trọ</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="quan_ly_nhan_vien.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (CHỦ TRỌ)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-chu_doanh_nghiep">Chủ trọ</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ CHỦ TRỌ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Nhân Viên & Bàn Giao 1-Click</h1>
+                    <p>Phân công khu vực quản lý vật lý (cô lập dữ liệu), luân chuyển nhân sự 1-click & theo dõi KPI</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="nut-phu" onclick="moModalBanGiao()">🔄 Bàn giao công việc 1-Click</button>
+                    <button class="nut-chinh" onclick="moModalThemNV()">+ Thêm Nhân Viên Mới</button>
+                </div>
+            </div>
+
+            <div class="khung-bang">
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Họ và Tên</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Khu vực quản lý (Tòa nhà)</th>
+                            <th>Nhóm quyền RBAC</th>
+                            <th>Trạng thái</th>
+                            <th>Hiệu suất KPI</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-nhan-vien">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Them Nhan Vien -->
+    <div id="modal-them-nv" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 550px;">
+            <div class="tieu-de-modal">
+                <h3>Thêm Tài Khoản Nhân Viên Mới</h3>
+                <button onclick="dongModalThemNV()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <form id="form-them-nv" onsubmit="xuLyThemNV(event)">
+                <div class="noi-dung-modal">
+                    <div class="nhom-nhap">
+                        <label>Họ và Tên</label>
+                        <input type="text" id="nv-ho-ten" required placeholder="Trần Văn Quản">
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Email</label>
+                            <input type="email" id="nv-email" required placeholder="quanly@domain.com">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Số điện thoại</label>
+                            <input type="tel" id="nv-sdt" required placeholder="0909888777">
+                        </div>
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Mật khẩu đăng nhập ban đầu</label>
+                        <input type="password" id="nv-mat-khau" required placeholder="••••••••" value="123456">
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Phân công Khu trọ / Tòa nhà</label>
+                            <select id="nv-khu-tro" required></select>
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Gán Nhóm quyền RBAC</label>
+                            <select id="nv-nhom-quyen"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalThemNV()">Hủy</button>
+                    <button type="submit" class="nut-chinh">Tạo Nhân Viên</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ban Giao Cong Viec 1-Click -->
+    <div id="modal-ban-giao" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 550px;">
+            <div class="tieu-de-modal">
+                <h3>Luân Chuyển Nhân Sự 1-Click</h3>
+                <button onclick="dongModalBanGiao()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <form id="form-ban-giao" onsubmit="xuLyBanGiao(event)">
+                <div class="noi-dung-modal">
+                    <p style="font-size:13px; color:#64748b; margin-bottom:16px;">
+                        Toàn bộ các phiếu báo hỏng sự cố đang xử lý và khu trọ phân công sẽ được tự động chuyển giao sang tài khoản của nhân viên mới ngay lập tức.
+                    </p>
+                    <div class="nhom-nhap">
+                        <label>Từ nhân viên cũ (Nghỉ việc / Chuyển vị trí)</label>
+                        <select id="bg-nv-cu" required></select>
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Chuyển giao cho nhân viên mới tiếp nhận</label>
+                        <select id="bg-nv-moi" required></select>
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalBanGiao()">Hủy</button>
+                    <button type="submit" class="nut-chinh">Xác Nhận Bàn Giao 1-Click</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Canh bao SOS cho chu tro -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="quan_ly_nhan_vien.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.nhom-nut-kiem-duyet {
+    display: flex;
+    gap: 6px;
+}
+
+.so-report-do {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 3px 8px;
+    border-radius: 9999px;
+    font-weight: 700;
+}

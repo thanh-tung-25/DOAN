@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Phòng Trọ Thông Minh - Smart Rent House</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --accent: #34d399;
+            --accent-glow: #6ee7b7;
+            --bg-dark: #02120d;
+            --bg-dark-card: rgba(4, 25, 18, 0.88);
+            --border-glass: rgba(167, 243, 208, 0.2);
+            --border-glow: rgba(52, 211, 153, 0.5);
+            --text-main: #f0fdf4;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--bg-dark);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hiệu ứng hào quang nền toàn màn hình (Massive Ambient Glows) */
+        .bg-glow-trai {
+            position: fixed;
+            top: -200px;
+            left: -150px;
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.4) 0%, rgba(16, 185, 129, 0.18) 45%, transparent 70%);
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow-phai {
+            position: fixed;
+            bottom: -200px;
+            right: -150px;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, rgba(6, 78, 59, 0.25) 50%, transparent 75%);
+            filter: blur(140px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header thanh điều hướng Full màn hình */
+        header.welcome-header {
+            position: relative;
+            z-index: 30;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 64px;
+            border-bottom: 1px solid var(--border-glass);
+            backdrop-filter: blur(20px);
+            background: rgba(2, 18, 13, 0.85);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon-nav {
+            font-size: 28px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.5);
+            border: 1.5px solid rgba(167, 243, 208, 0.4);
+            overflow: hidden;
+        }
+
+        .logo-icon-nav img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .logo-text-nav {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text-nav span {
+            color: var(--accent);
+            text-shadow: 0 0 16px rgba(52, 211, 153, 0.6);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .btn-header-login {
+            padding: 12px 28px;
+            color: #f1f5f9;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: all 0.25s;
+            border: 1px solid rgba(167, 243, 208, 0.25);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-header-login:hover {
+            color: #ffffff;
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35);
+        }
+
+        .btn-header-reg {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 800;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.5);
+            transition: all 0.25s;
+            border: 1px solid rgba(167, 243, 208, 0.5);
+        }
+
+        .btn-header-reg:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(5, 150, 105, 0.7);
+        }
+
+        /* ===================================================
+           MAIN FULL MÀN HÌNH (FULL WIDTH & EXPANSIVE DESKTOP)
+           =================================================== */
+        main.welcome-container-full {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            flex: 1;
+            padding: 48px 64px 80px 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 70px;
+        }
+
+        /* BỐ CỤC 2 NỬA MÀN HÌNH CÂN XỨNG RỘNG TOÀN DIỆN */
+        .hero-split-fullscreen {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 56px;
+            align-items: center;
+            width: 100%;
+            min-height: calc(100vh - 180px);
+        }
+
+        /* ---------------------------------------------------
+           NỬA TRÁI: VỊ TRÍ CHÍNH ĐIỆN VỚI CHỮ TO & CÁC Ô CLICK
+           --------------------------------------------------- */
+        .cot-chinh-dien-dai {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding-right: 16px;
+        }
+
+        /* Logo Chính Điện To Khổng Lồ, Phát Quang Cực Sang */
+        .logo-chinh-dien-lon {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.7) 0%, rgba(3, 30, 22, 0.85) 100%);
+            border: 1.5px solid var(--border-glow);
+            padding: 16px 28px;
+            border-radius: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 16px 45px -5px rgba(5, 150, 105, 0.4), inset 0 0 25px rgba(52, 211, 153, 0.2);
+            backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .logo-chinh-dien-lon:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: var(--accent-glow);
+            box-shadow: 0 22px 55px -5px rgba(5, 150, 105, 0.6);
+        }
+
+        .logo-bieu-tuong-khung {
+            font-size: 42px;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(5, 150, 105, 0.55);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            flex-shrink: 0;
+            animation: float-icon 4s ease-in-out infinite alternate;
+            overflow: hidden;
+        }
+
+        .logo-bieu-tuong-khung img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 16px;
+        }
+
+        @keyframes float-icon {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-4px); }
+        }
+
+        .logo-thong-tin-thuong-hieu {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ten-he-thong-chinh {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.8px;
+            line-height: 1.15;
+        }
+
+        .ten-he-thong-chinh span {
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(52, 211, 153, 0.7);
+        }
+
+        .khau-hieu-phu {
+            font-size: 12.5px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent-glow);
+            margin-top: 4px;
+        }
+
+        /* Pill Badge */
+        .pill-badge-vip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(16, 185, 129, 0.14);
+            border: 1px solid rgba(52, 211, 153, 0.45);
+            padding: 9px 22px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent-glow);
+            margin-bottom: 24px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .pill-dot-vip {
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 14px #10b981;
+            animation: pulse-vip 2s infinite;
+        }
+
+        @keyframes pulse-vip {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.3); }
+        }
+
+        /* TIÊU ĐỀ CHÍNH ĐIỆN CỰC ĐẠI (GIẢI QUYẾT YÊU CẦU: CHỮ TO LỘNG LẪY) */
+        h1.tieu-de-chinh-dien-khong-lo {
+            font-size: clamp(48px, 4.2vw, 68px);
+            font-weight: 900;
+            line-height: 1.12;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1.tieu-de-chinh-dien-khong-lo em {
+            font-style: normal;
+            background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #6ee7b7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(52, 211, 153, 0.4);
+        }
+
+        p.mo-ta-chinh-dien-rong {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            max-width: 680px;
+            font-weight: 400;
+        }
+
+        /* Banner Đã Đăng Nhập */
+        #banner-da-dang-nhap {
+            display: none;
+            background: rgba(16, 185, 129, 0.16);
+            border: 1.5px solid rgba(52, 211, 153, 0.45);
+            border-radius: 18px;
+            padding: 20px 28px;
+            margin-bottom: 32px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* CÁC Ô CLICK ĐĂNG NHẬP / ĐĂNG KÝ SIÊU TO & BẮT MẮT */
+        .hop-nut-cta-khong-lo {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+
+        .hang-hai-nut-chinh {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            width: 100%;
+        }
+
+        /* Ô Click Đăng Nhập (Emerald Gradient Khổng Lồ) */
+        .btn-cta-dang-nhap-to {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 28px;
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 20px;
+            box-shadow: 0 14px 35px -5px rgba(5, 150, 105, 0.6), 0 0 30px rgba(16, 185, 129, 0.35);
+            border: 1.5px solid rgba(167, 243, 208, 0.6);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cta-dang-nhap-to::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.75s ease;
+        }
+
+        .btn-cta-dang-nhap-to:hover::before {
+            left: 100%;
+        }
+
+        .btn-cta-dang-nhap-to:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 45px -5px rgba(5, 150, 105, 0.8), 0 0 40px rgba(52, 211, 153, 0.6);
+            border-color: #ffffff;
+        }
+
+        /* Ô Click Đăng Ký (Dark Jade Glassmorphism To Rộng) */
+        .btn-cta-dang-ky-to {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 28px;
+            background: linear-gradient(135deg, rgba(6, 40, 30, 0.8) 0%, rgba(3, 24, 18, 0.9) 100%);
+            border: 2px solid rgba(52, 211, 153, 0.45);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-cta-dang-ky-to:hover {
+            background: rgba(16, 185, 129, 0.22);
+            border-color: var(--accent-glow);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 18px 40px -5px rgba(5, 150, 105, 0.5);
+        }
+
+        .cta-noi-dung-trai {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cta-icon-hop {
+            font-size: 28px;
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cta-dang-ky-to .cta-icon-hop {
+            background: rgba(5, 150, 105, 0.3);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+        }
+
+        .cta-chu-hop {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .cta-chu-chinh {
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        .cta-chu-phu {
+            font-size: 12px;
+            opacity: 0.85;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .cta-mui-ten {
+            font-size: 22px;
+            opacity: 0.8;
+            transition: transform 0.25s;
+        }
+
+        .btn-cta-dang-nhap-to:hover .cta-mui-ten,
+        .btn-cta-dang-ky-to:hover .cta-mui-ten {
+            transform: translateX(6px);
+            opacity: 1;
+        }
+
+        /* Nút Khám Phá Rộng Toàn Chiều */
+        .btn-cta-kham-pha-dai {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1.5px dashed rgba(52, 211, 153, 0.4);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 16px;
+            font-size: 15.5px;
+            font-weight: 800;
+            transition: all 0.25s;
+        }
+
+        .btn-cta-kham-pha-dai:hover {
+            background: rgba(16, 185, 129, 0.22);
+            border-color: var(--accent-glow);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.3);
+        }
+
+        /* 3 Chỉ Số Tin Cậy Lớn */
+        .chi-so-tin-cay-khung {
+            display: flex;
+            gap: 40px;
+            border-top: 1px solid var(--border-glass);
+            padding-top: 28px;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .item-chi-so {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .so-lon {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent-glow);
+            letter-spacing: -0.5px;
+        }
+
+        .nhan-nho {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* ---------------------------------------------------
+           NỬA PHẢI: KHU VỰC TRƯNG BÀY HÌNH ẢNH NHÀ TRỌ KHỔNG LỒ
+           (RỘNG, CAO, SANG TRỌNG, DỄ DÀNG DÁN ẢNH)
+           --------------------------------------------------- */
+        .cot-trung-bay-anh-rong {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Hộp Gợi Ý Dán Ảnh Thân Thiện */
+        .hop-dan-anh-huong-dan {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 78, 59, 0.5);
+            border: 1.5px dashed rgba(52, 211, 153, 0.5);
+            border-radius: 16px;
+            padding: 12px 20px;
+            font-size: 13.5px;
+            color: #d1fae5;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .hop-dan-anh-huong-dan strong {
+            color: #ffffff;
+        }
+
+        .hop-dan-anh-huong-dan code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3px 8px;
+            border-radius: 6px;
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* Thẻ Trưng Bày Ảnh Phòng Trọ Cao Cấp Cực Đại */
+        .khung-anh-hero-card {
+            position: relative;
+            background: var(--bg-dark-card);
+            border: 2px solid var(--border-glow);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(5, 150, 105, 0.35);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+        }
+
+        .khung-anh-hero-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 60px rgba(5, 150, 105, 0.5);
+            border-color: var(--accent-glow);
+        }
+
+        /* Chiều cao ảnh lớn, sắc nét chuẩn Full Screen */
+        .vung-chua-anh-chinh {
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            position: relative;
+            background: #032017;
+        }
+
+        .anh-nha-tro-chinh-thuc {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+        }
+
+        .khung-anh-hero-card:hover .anh-nha-tro-chinh-thuc {
+            transform: scale(1.05);
+        }
+
+        /* Tag Giá Thuê Cực To & Phát Sáng */
+        .tag-gia-thue-khong-lo {
+            position: absolute;
+            top: 22px;
+            left: 22px;
+            background: rgba(2, 18, 13, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1.5px solid var(--border-glow);
+            color: #34d399;
+            padding: 10px 22px;
+            border-radius: 999px;
+            font-size: 18px;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(5, 150, 105, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tag-danh-gia-khong-lo {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            background: rgba(2, 18, 13, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            color: #fbbf24;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .badge-thong-minh-noi {
+            position: absolute;
+            bottom: 20px;
+            left: 22px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 800;
+            padding: 8px 18px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Chi tiết phòng phía dưới ảnh */
+        .chi-tiet-phong-hero {
+            padding: 26px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: linear-gradient(180deg, rgba(4, 25, 18, 0.98) 0%, rgba(2, 16, 11, 1) 100%);
+        }
+
+        .ten-phong-mau-lon {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .dia-chi-phong-mau-lon {
+            font-size: 14.5px;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .danh-sach-tien-ich-mau-lon {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .tag-tien-ich-dep {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: #a7f3d0;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 10px;
+        }
+
+        /* Hàng Ảnh Thumbnails Lớn Rộng Để Đổi Ảnh */
+        .hang-anh-thumbnails-khong-lo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            width: 100%;
+        }
+
+        .item-thumb-anh {
+            height: 110px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--border-glass);
+            cursor: pointer;
+            position: relative;
+            background: #032017;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .item-thumb-anh img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .item-thumb-anh:hover, .item-thumb-anh.dang-chon {
+            border-color: var(--accent);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(5, 150, 105, 0.45);
+        }
+
+        .item-thumb-anh:hover img {
+            transform: scale(1.1);
+        }
+
+        .nhan-chu-thumb {
+            position: absolute;
+            bottom: 6px;
+            left: 8px;
+            right: 8px;
+            background: rgba(2, 18, 13, 0.88);
+            font-size: 12px;
+            font-weight: 800;
+            color: #d1fae5;
+            padding: 4px 8px;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(167, 243, 208, 0.2);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ===================================================
+           PHẦN THẺ VAI TRÒ DƯỚI CÙNG (4 CỔNG CHỨC NĂNG FULL WIDTH)
+           =================================================== */
+        .khu-vuc-vai-tro-fullscreen {
+            border-top: 1px solid var(--border-glass);
+            padding-top: 50px;
+            width: 100%;
+        }
+
+        .tieu-de-khu-vai-tro {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .tieu-de-khu-vai-tro h2 {
+            font-size: 30px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.8px;
+        }
+
+        .tieu-de-khu-vai-tro p {
+            font-size: 16px;
+            color: var(--text-sub);
+            margin-top: 8px;
+        }
+
+        .luoi-the-vai-tro-4-cot {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            width: 100%;
+        }
+
+        .the-vai-tro-vip {
+            background: var(--bg-dark-card);
+            border: 1.5px solid var(--border-glass);
+            border-radius: 22px;
+            padding: 30px 26px;
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .the-vai-tro-vip::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #059669, #34d399);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .the-vai-tro-vip:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -10px rgba(5, 150, 105, 0.35);
+        }
+
+        .the-vai-tro-vip:hover::before {
+            opacity: 1;
+        }
+
+        .icon-vai-tro-lon {
+            font-size: 38px;
+            margin-bottom: 18px;
+            display: inline-block;
+        }
+
+        .tieu-de-vai-tro {
+            font-size: 19px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .mo-ta-vai-tro {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-sub);
+            margin-bottom: 22px;
+        }
+
+        .lien-ket-vai-tro {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            transition: all 0.2s;
+        }
+
+        .lien-ket-vai-tro:hover {
+            color: #a7f3d0;
+            transform: translateX(5px);
+        }
+
+        /* Chân Trang */
+        footer.welcome-footer {
+            border-top: 1px solid var(--border-glass);
+            padding: 28px 64px;
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+            position: relative;
+            z-index: 10;
+            background: rgba(2, 14, 10, 0.9);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            header.welcome-header {
+                padding: 18px 32px;
+            }
+            main.welcome-container-full {
+                padding: 32px 32px 60px 32px;
+            }
+            .hero-split-fullscreen {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            .cot-chinh-dien-dai {
+                align-items: center;
+                text-align: center;
+                padding-right: 0;
+            }
+            p.mo-ta-chinh-dien-rong {
+                max-width: 100%;
+            }
+            .chi-so-tin-cay-khung {
+                justify-content: center;
+            }
+            .hop-nut-cta-khong-lo {
+                max-width: 100%;
+            }
+            .hang-hai-nut-chinh {
+                grid-template-columns: 1fr;
+            }
+            .vung-chua-anh-chinh {
+                height: 360px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header.welcome-header {
+                padding: 16px 20px;
+            }
+            main.welcome-container-full {
+                padding: 24px 16px 40px 16px;
+                gap: 40px;
+            }
+            h1.tieu-de-chinh-dien-khong-lo {
+                font-size: 34px;
+                letter-spacing: -1px;
+            }
+            .vung-chua-anh-chinh {
+                height: 280px;
+            }
+            .hang-anh-thumbnails-khong-lo {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .item-thumb-anh {
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow-trai"></div>
+    <div class="bg-glow-phai"></div>
+    <div class="bg-grid-overlay"></div>
+
+    <!-- Header Navigation Full Screen -->
+    <header class="welcome-header">
+        <a href="/" class="logo-wrap">
+            <div class="logo-icon-nav">
+                <img src="/tai_nguyen_dung_chung/hinh_anh/logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span style="display:none;">🏠</span>
+            </div>
+            <div class="logo-text-nav">SMART <span>RENT HOUSE</span></div>
+        </a>
+        <div class="header-actions" id="header-user-actions">
+            <a href="/cac_trang/xac_thuc/dang_nhap/dang_nhap.html" class="btn-header-login">Đăng Nhập</a>
+            <a href="/cac_trang/xac_thuc/dang_ky/dang_ky.html" class="btn-header-reg">Đăng Ký Tài Khoản</a>
+        </div>
+    </header>
+
+    <!-- Main Container Full Màn Hình -->
+    <main class="welcome-container-full">
+
+        <!-- ====================================================================
+             BỐ CỤC 2 NỬA MÀN HÌNH CỰC ĐẠI:
+             - NỬA TRÁI: Vị Trí Chính Điện (Logo Khổng Lồ, Chữ To Lộng Lẫy, Ô Bấm To)
+             - NỬA PHẢI: Khung Trưng Bày Hình Ảnh Nhà Trọ Lớn (Sẵn Sàng Dán Ảnh)
+             ==================================================================== -->
+        <section class="hero-split-fullscreen">
+
+            <!-- NỬA TRÁI: VỊ TRÍ CHÍNH ĐIỆN -->
+            <div class="cot-chinh-dien-dai">
+                
+                <!-- LOGO CHÍNH ĐIỆN KHỔNG LỒ & LỘNG LẪY -->
+                <div class="logo-chinh-dien-lon">
+                    <div class="logo-bieu-tuong-khung">
+                        <img src="/tai_nguyen_dung_chung/hinh_anh/logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display:none;">🏠</span>
+                    </div>
+                    <div class="logo-thong-tin-thuong-hieu">
+                        <span class="ten-he-thong-chinh">PHÒNG TRỌ <span>SMART</span></span>
+                        <span class="khau-hieu-phu">HỆ THỐNG QUẢN LÝ NHÀ TRỌ THÔNG MINH 4.0</span>
+                    </div>
+                </div>
+
+                <!-- Floating Pill Badge -->
+                <div class="pill-badge-vip">
+                    <span class="pill-dot-vip"></span>
+                    Nền Tảng Quản Lý Nhà Trọ & Cho Thuê Trực Tuyến Đẳng Cấp
+                </div>
+
+                <!-- TIÊU ĐỀ CHÍNH ĐIỆN CHỮ TO LỘNG LẪY -->
+                <h1 class="tieu-de-chinh-dien-khong-lo">
+                    Chào Mừng Đến Với<br>
+                    <em>Hệ Thống Trọ Chúng Tôi</em>
+                </h1>
+
+                <!-- Mô Tả Giới Thiệu Chữ To Rõ Ràng -->
+                <p class="mo-ta-chinh-dien-rong">
+                    Giải pháp chuyển đổi số toàn diện cho mô hình phòng trọ, căn hộ dịch vụ và ký túc xá.
+                    Tự động tính tiền điện nước theo công tơ thực tế, chia bill Campuchia thông minh,
+                    thanh toán VietQR động và kết nối an toàn giữa Chủ trọ & Khách thuê.
+                </p>
+
+                <!-- Banner Nếu Đã Đăng Nhập -->
+                <div id="banner-da-dang-nhap">
+                    <p style="font-size: 16px; color: #34d399; font-weight: 800; margin-bottom: 6px;">
+                        👋 Xin chào <span id="ten-nguoi-dung-hien-tai">Bạn</span>!
+                    </p>
+                    <p style="font-size: 14px; color: #cbd5e1; margin-bottom: 14px;">
+                        Bạn đã đăng nhập với vai trò: <strong id="vai-tro-hien-tai" style="text-transform: capitalize; color: #6ee7b7;">Người dùng</strong>.
+                    </p>
+                    <a id="link-ve-dashboard" href="#" class="btn-cta-dang-nhap-to" style="padding:14px 24px; font-size:15px; text-decoration:none;">
+                        <span>👉 Vào Ngay Bảng Điều Khiển Của Bạn</span>
+                        <span>➔</span>
+                    </a>
+                </div>
+
+                <!-- CÁC Ô CLICK ĐĂNG NHẬP / ĐĂNG KÝ SIÊU TO, LỘNG LẪY, BẮT MẮT -->
+                <div class="hop-nut-cta-khong-lo" id="cta-guest-group">
+                    <div class="hang-hai-nut-chinh">
+                        <!-- Ô CLICK 1: ĐĂNG NHẬP HỆ THỐNG -->
+                        <a href="/cac_trang/xac_thuc/dang_nhap/dang_nhap.html" class="btn-cta-dang-nhap-to" id="btn-click-dang-nhap">
+                            <div class="cta-noi-dung-trai">
+                                <div class="cta-icon-hop">🔐</div>
+                                <div class="cta-chu-hop">
+                                    <span class="cta-chu-chinh">ĐĂNG NHẬP</span>
+                                    <span class="cta-chu-phu">Vào bảng quản trị</span>
+                                </div>
+                            </div>
+                            <span class="cta-mui-ten">➔</span>
+                        </a>
+
+                        <!-- Ô CLICK 2: ĐĂNG KÝ TÀI KHOẢN -->
+                        <a href="/cac_trang/xac_thuc/dang_ky/dang_ky.html" class="btn-cta-dang-ky-to" id="btn-click-dang-ky">
+                            <div class="cta-noi-dung-trai">
+                                <div class="cta-icon-hop">📝</div>
+                                <div class="cta-chu-hop">
+                                    <span class="cta-chu-chinh">ĐĂNG KÝ</span>
+                                    <span class="cta-chu-phu">Tạo tài khoản mới</span>
+                                </div>
+                            </div>
+                            <span class="cta-mui-ten">➔</span>
+                        </a>
+                    </div>
+
+                    <!-- Ô CLICK 3: XEM PHÒNG TRỰC TIẾP KHÔNG CẦN TÀI KHOẢN -->
+                    <a href="/cac_trang/khach_thue/tim_phong/tim_phong.html" class="btn-cta-kham-pha-dai" id="btn-xem-phong">
+                        <span style="font-size: 22px;">🔍</span>
+                        <span>Khám Phá Danh Sách Phòng Trọ Trực Tiếp (Không Cần Đăng Nhập)</span>
+                    </a>
+                </div>
+
+                <!-- 3 Chỉ Số Tin Cậy Lớn -->
+                <div class="chi-so-tin-cay-khung">
+                    <div class="item-chi-so">
+                        <span class="so-lon">100%</span>
+                        <span class="nhan-nho">Dữ liệu & Tính tiền thật</span>
+                    </div>
+                    <div class="item-chi-so">
+                        <span class="so-lon">24/7</span>
+                        <span class="nhan-nho">Trợ lý ảo & Còi SOS</span>
+                    </div>
+                    <div class="item-chi-so">
+                        <span class="so-lon">VietQR</span>
+                        <span class="nhan-nho">Thanh toán tự động</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ====================================================================
+                 NỬA PHẢI: KHU VỰC TRƯNG BÀY HÌNH ẢNH NHÀ TRỌ CỰC ĐẠI
+                 (BẠN DỄ DÀNG DÁN LINK ẢNH THỰC TẾ VÀO CÁC THẺ <img> DƯỚI ĐÂY)
+                 ==================================================================== -->
+            <div class="cot-trung-bay-anh-rong">
+
+                <!-- Gợi Ý Dán Link Ảnh Thân Thiện -->
+                <div class="hop-dan-anh-huong-dan">
+                    <span>📸 <strong>Khu vực hình ảnh nhà trọ mẫu</strong></span>
+                    <small>Bạn chỉ cần dán link ảnh thật vào thuộc tính <code>src="..."</code> bên dưới</small>
+                </div>
+
+                <!-- Thẻ Hero Ảnh Phòng Trọ Lớn (Hero Card) -->
+                <div class="khung-anh-hero-card">
+                    <div class="vung-chua-anh-chinh">
+                        <!-- ============================================================
+                             ẢNH CHÍNH LỚN: BẠN CÓ THỂ DÁN ĐƯỜNG DẪN ẢNH CỦA BẠN VÀO THUỘC TÍNH src=""
+                             ============================================================ -->
+                        <img id="anh-chinh-preview" 
+                             class="anh-nha-tro-chinh-thuc" 
+                             src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1400&auto=format&fit=crop&q=85" 
+                             alt="Hình ảnh phòng trọ cao cấp">
+
+                        <!-- Giá thuê & Đánh giá nổi khổng lồ -->
+                        <div class="tag-gia-thue-khong-lo">
+                            <span>💵</span>
+                            <span id="label-gia-preview">3.500.000 đ/tháng</span>
+                        </div>
+
+                        <div class="tag-danh-gia-khong-lo">
+                            <span>⭐</span>
+                            <span>4.9 (128 đánh giá)</span>
+                        </div>
+
+                        <div class="badge-thong-minh-noi">
+                            <span>⚡</span>
+                            <span>Công tơ điện tử minh bạch</span>
+                        </div>
+                    </div>
+
+                    <!-- Thông Tin Chi Tiết Dưới Ảnh -->
+                    <div class="chi-tiet-phong-hero">
+                        <div>
+                            <h3 class="ten-phong-mau-lon" id="label-ten-preview">Studio Cao Cấp Full Tiện Nghi - Ban Công Thoáng Mát</h3>
+                            <p class="dia-chi-phong-mau-lon" id="label-diachi-preview">📍 Khu Trọ Xanh Sài Gòn, Quận 7, TP. Hồ Chí Minh</p>
+                        </div>
+
+                        <div class="danh-sach-tien-ich-mau-lon">
+                            <span class="tag-tien-ich-dep">🌿 Ban công riêng</span>
+                            <span class="tag-tien-ich-dep">📶 Wifi 6 Mesh</span>
+                            <span class="tag-tien-ich-dep">❄️ Máy lạnh Inverter</span>
+                            <span class="tag-tien-ich-dep">🔒 Khóa vân tay 24/7</span>
+                            <span class="tag-tien-ich-dep">🛡️ Đã kiểm duyệt KYC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HÀNG 3 ẢNH THU NHỎ LỚN (THUMBNAILS) ĐỂ BẤM ĐỔI ẢNH HOẶC DÁN THÊM ẢNH -->
+                <div class="hang-anh-thumbnails-khong-lo">
+                    <!-- Ảnh Thumb 1 (Phòng Studio) -->
+                    <div class="item-thumb-anh dang-chon" onclick="doiAnhChinh(this, 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1400&auto=format&fit=crop&q=85', 'Studio Cao Cấp Full Tiện Nghi - Ban Công Thoáng Mát', '3.500.000 đ/tháng', '📍 Khu Trọ Xanh Sài Gòn, Quận 7, TP. Hồ Chí Minh')">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&auto=format&fit=crop&q=75" alt="Ảnh phòng Studio">
+                        <span class="nhan-chu-thumb">Phòng Studio</span>
+                    </div>
+
+                    <!-- Ảnh Thumb 2 (Gác lửng) -->
+                    <div class="item-thumb-anh" onclick="doiAnhChinh(this, 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&auto=format&fit=crop&q=85', 'Phòng Gác Lửng Sang Trọng - Cửa Sổ Lớn Đón Nắng', '3.200.000 đ/tháng', '📍 Ký Túc Xá Tri Thức Trẻ, Quận 10, TP. Hồ Chí Minh')">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&auto=format&fit=crop&q=75" alt="Ảnh phòng Gác lửng">
+                        <span class="nhan-chu-thumb">Gác lửng hiện đại</span>
+                    </div>
+
+                    <!-- Ảnh Thumb 3 (Bếp riêng) -->
+                    <div class="item-thumb-anh" onclick="doiAnhChinh(this, 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400&auto=format&fit=crop&q=85', 'Căn Hộ Mini 1 Phòng Ngủ - Bếp Riêng Tách Biệt', '4.200.000 đ/tháng', '📍 Căn Hộ Dịch Vụ Kim Cương, Bình Thạnh, TP. Hồ Chí Minh')">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500&auto=format&fit=crop&q=75" alt="Ảnh Bếp riêng">
+                        <span class="nhan-chu-thumb">Bếp riêng biệt</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================================
+             KHỐI PHÂN HỆ VAI TRÒ HỆ THỐNG (4 CỔNG CHỨC NĂNG FULL WIDTH)
+             ==================================================================== -->
+        <section class="khu-vuc-vai-tro-fullscreen">
+            <div class="tieu-de-khu-vai-tro">
+                <h2>Cổng Kết Nối Đa Vai Trò</h2>
+                <p>Hệ thống hỗ trợ từng phân hệ chuyên biệt tối ưu cho mọi nghiệp vụ quản lý phòng trọ</p>
+            </div>
+
+            <div class="luoi-the-vai-tro-4-cot">
+                <div class="the-vai-tro-vip">
+                    <div>
+                        <span class="icon-vai-tro-lon">🏢</span>
+                        <h3 class="tieu-de-vai-tro">Chủ Trọ & Doanh Nghiệp</h3>
+                        <p class="mo-ta-vai-tro">Quản lý các cơ sở phòng trọ, chốt chỉ số công tơ điện nước thời gian thực, lập hóa đơn tự động, chia bill bạn cùng phòng và thu tiền qua VietQR.</p>
+                    </div>
+                    <a href="/cac_trang/xac_thuc/dang_nhap/dang_nhap.html" class="lien-ket-vai-tro">Trải nghiệm phân hệ Chủ trọ →</a>
+                </div>
+
+                <div class="the-vai-tro-vip">
+                    <div>
+                        <span class="icon-vai-tro-lon">👤</span>
+                        <h3 class="tieu-de-vai-tro">Khách Thuê Phòng</h3>
+                        <p class="mo-ta-vai-tro">Tìm phòng trọ xung quanh vị trí với bản đồ 2km, ký hợp đồng điện tử Canvas, quét mã VietQR chia tiền bạn cùng phòng và nút còi báo động cứu hộ SOS.</p>
+                    </div>
+                    <a href="/cac_trang/khach_thue/tim_phong/tim_phong.html" class="lien-ket-vai-tro">Khám phá phòng trọ trống →</a>
+                </div>
+
+                <div class="the-vai-tro-vip">
+                    <div>
+                        <span class="icon-vai-tro-lon">👷</span>
+                        <h3 class="tieu-de-vai-tro">Nhân Viên Vận Hành</h3>
+                        <p class="mo-ta-vai-tro">Tiếp nhận phân công khu trọ quản lý, ghi chỉ số điện nước định kỳ hàng tháng, xử lý phiếu báo hỏng sự cố thực địa và bàn giao phòng 1-click.</p>
+                    </div>
+                    <a href="/cac_trang/xac_thuc/dang_nhap/dang_nhap.html" class="lien-ket-vai-tro">Cổng vận hành nhân viên →</a>
+                </div>
+
+                <div class="the-vai-tro-vip">
+                    <div>
+                        <span class="icon-vai-tro-lon">🛡️</span>
+                        <h3 class="tieu-de-vai-tro">Ban Quản Trị Hệ Thống</h3>
+                        <p class="mo-ta-vai-tro">Xác thực hồ sơ định danh KYC chủ trọ (CCCD/GPKD), kiểm duyệt tin đăng cho thuê phòng và quản lý tài khoản người dùng an toàn.</p>
+                    </div>
+                    <a href="/cac_trang/xac_thuc/dang_nhap/dang_nhap.html" class="lien-ket-vai-tro">Cổng quản trị viên →</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Full Width -->
+    <footer class="welcome-footer">
+        <p>© 2026 Smart Rent House - Hệ Thống Quản Lý Phòng Trọ & Căn Hộ Dịch Vụ Thông Minh. Kết nối MySQL XAMPP.</p>
+    </footer>
+
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script>
+        // Ham doi anh preview chinh khi nguoi dung click vao thumbnail
+        function doiAnhChinh(elementThumb, urlAnh, tenPhong, giaPhong, diaChi) {
+            const anhChinh = document.getElementById('anh-chinh-preview');
+            const labelTen = document.getElementById('label-ten-preview');
+            const labelGia = document.getElementById('label-gia-preview');
+            const labelDiaChi = document.getElementById('label-diachi-preview');
+
+            if (anhChinh) {
+                anhChinh.style.opacity = '0.3';
+                setTimeout(() => {
+                    anhChinh.src = urlAnh;
+                    anhChinh.style.opacity = '1';
+                }, 150);
+            }
+
+            if (labelTen && tenPhong) labelTen.textContent = tenPhong;
+            if (labelGia && giaPhong) labelGia.textContent = giaPhong;
+            if (labelDiaChi && diaChi) labelDiaChi.textContent = diaChi;
+
+            // Cap nhat class dang-chon
+            document.querySelectorAll('.item-thumb-anh').forEach(t => t.classList.remove('dang-chon'));
+            if (elementThumb) elementThumb.classList.add('dang-chon');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = window.LuuTru ? window.LuuTru.layToken() : null;
+            const user = window.LuuTru ? window.LuuTru.layNguoiDung() : null;
+
+            if (token && user) {
+                const banner = document.getElementById('banner-da-dang-nhap');
+                const tenEl = document.getElementById('ten-nguoi-dung-hien-tai');
+                const vaiTroEl = document.getElementById('vai-tro-hien-tai');
+                const linkDash = document.getElementById('link-ve-dashboard');
+                const headerActions = document.getElementById('header-user-actions');
+
+                if (tenEl) tenEl.textContent = user.ho_ten || 'Bạn';
+                if (vaiTroEl) vaiTroEl.textContent = user.vai_tro;
+
+                let dashboardUrl = '/cac_trang/khach_thue/tim_phong/tim_phong.html';
+                if (user.vai_tro === 'admin') dashboardUrl = '/cac_trang/admin/thong_ke_nen_tang/thong_ke_nen_tang.html';
+                else if (user.vai_tro === 'chu_doanh_nghiep') dashboardUrl = '/cac_trang/chu_doanh_nghiep/thong_ke/thong_ke.html';
+                else if (user.vai_tro === 'nhan_vien') dashboardUrl = '/cac_trang/nhan_vien/tong_quan_van_hanh/tong_quan_van_hanh.html';
+
+                if (linkDash) linkDash.href = dashboardUrl;
+                if (banner) banner.style.display = 'block';
+
+                if (headerActions) {
+                    headerActions.innerHTML = `
+                        <span style="font-size: 14px; color: #cbd5e1; font-weight:600;">👤 ${user.ho_ten}</span>
+                        <a href="${dashboardUrl}" class="btn-header-reg" style="font-size:14px; padding:10px 20px;">Vào Dashboard</a>
+                    `;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

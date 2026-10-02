@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thống Kê Nền Tảng - Admin Portal</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="thong_ke_nen_tang.css">
+</head>
+<body>
+    <!-- Thanh dieu huong -->
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai">
+            <div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (ADMIN)</strong></div>
+        </div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span id="the-vai-tro" class="the-vai-tro vai-tro-admin">Admin</span>
+                <div class="thong-tin-user">
+                    <span id="ten-nguoi-dung" class="ten-user">Ban Quản Trị</span>
+                    <span id="email-nguoi-dung" class="email-user">admin@hethong.vn</span>
+                </div>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <!-- Thanh ben -->
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ VIÊN</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <!-- Noi dung chinh -->
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Thống Kê Nền Tảng & Tăng Trưởng</h1>
+                    <p>Tổng quan hoạt động, tăng trưởng người dùng và doanh thu hoa hồng sàn</p>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="the-thong-ke-grid">
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background: #ecfdf5; color: #059669;">👥</div>
+                    <div>
+                        <div id="kpi-tong-user" class="chi-so-kpi">0</div>
+                        <div class="nhan-kpi">Tổng người dùng</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background: #fdf4ff; color: #c026d3;">🏢</div>
+                    <div>
+                        <div id="kpi-tong-chu" class="chi-so-kpi">0</div>
+                        <div class="nhan-kpi">Chủ trọ trên sàn</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background: #ecfdf5; color: #059669;">📝</div>
+                    <div>
+                        <div id="kpi-tong-hop-dong" class="chi-so-kpi">0</div>
+                        <div class="nhan-kpi">Giao dịch thành công</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background: #fef3c7; color: #d97706;">💰</div>
+                    <div>
+                        <div id="kpi-doanh-thu-hoa-hong" class="chi-so-kpi">0 đ</div>
+                        <div class="nhan-kpi">Hoa hồng sàn đã thu (10%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bieu do / Bang tong ket -->
+            <div class="luoi-hai-cot">
+                <div class="khung-the-noi-dung">
+                    <h3>📈 Tỷ Lệ Tăng Trưởng Hệ Thống</h3>
+                    <div class="thanh-tien-do-muc">
+                        <div class="nhan-tien-do"><span>Khách thuê hoạt động</span><strong>75%</strong></div>
+                        <div class="vung-bar"><div class="bar-fill" style="width: 75%; background: #10b981;"></div></div>
+                    </div>
+                    <div class="thanh-tien-do-muc">
+                        <div class="nhan-tien-do"><span>Tỷ lệ lấp đầy phòng trọ</span><strong>82%</strong></div>
+                        <div class="vung-bar"><div class="bar-fill" style="width: 82%; background: #059669;"></div></div>
+                    </div>
+                    <div class="thanh-tien-do-muc">
+                        <div class="nhan-tien-do"><span>Tỷ lệ thu hồi hoa hồng đúng hạn</span><strong>90%</strong></div>
+                        <div class="vung-bar"><div class="bar-fill" style="width: 90%; background: #f59e0b;"></div></div>
+                    </div>
+                </div>
+
+                <div class="khung-the-noi-dung">
+                    <h3>⚡ Hoạt Động Cần Chú Ý Ngay</h3>
+                    <ul class="danh-sach-can-chu-y">
+                        <li><span class="cham-cam"></span> Có hồ sơ Chủ trọ mới đang chờ duyệt KYC xác thực.</li>
+                        <li><span class="cham-do"></span> Có tin đăng bị người dùng báo cáo vi phạm tiêu chuẩn.</li>
+                        <li><span class="cham-xanh"></span> 5 hợp đồng thuê phòng vừa được đặt cọc thành công trong ngày.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="thong_ke_nen_tang.js"></script>
+</body>
+</html>

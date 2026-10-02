@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản - Hệ Thống Phòng Trọ Smart</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="dang_ky.css">
+</head>
+<body>
+    <div class="khung-dang-ky">
+        <div class="the-dang-ky">
+            <div class="dau-the">
+                <h2>Tạo Tài Khoản Mới</h2>
+                <p>Chọn vai trò để đăng ký sử dụng hệ thống</p>
+            </div>
+
+            <form id="form-dang-ky">
+                <div class="nhom-vai-tro">
+                    <label class="lua-chon-vai-tro">
+                        <input type="radio" name="vaiTro" value="khach_thue" checked onchange="thayDoiVaiTro(this.value)">
+                        <div class="hop-chon">
+                            <span class="icon">👤</span>
+                            <strong>Khách Thuê</strong>
+                            <small>Tìm phòng, ký hợp đồng, chia bill</small>
+                        </div>
+                    </label>
+                    <label class="lua-chon-vai-tro">
+                        <input type="radio" name="vaiTro" value="chu_doanh_nghiep" onchange="thayDoiVaiTro(this.value)">
+                        <div class="hop-chon">
+                            <span class="icon">🏢</span>
+                            <strong>Chủ Trọ</strong>
+                            <small>Đăng tin, quản lý phòng & nhân viên</small>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="nhom-nhap">
+                    <label>Họ và Tên</label>
+                    <input type="text" id="hoTen" required placeholder="Nguyễn Văn A">
+                </div>
+
+                <div class="hang-doi">
+                    <div class="nhom-nhap">
+                        <label>Email</label>
+                        <input type="email" id="email" required placeholder="email@domain.com">
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Số điện thoại</label>
+                        <input type="tel" id="soDienThoai" required placeholder="0901234567">
+                    </div>
+                </div>
+
+                <div class="nhom-nhap">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="matKhau" required placeholder="••••••••">
+                </div>
+
+                <!-- Phan thong tin bo sung cho Chu tro de xac thuc KYC -->
+                <div id="vung-kyc-chu-tro" style="display: none;" class="vung-kyc">
+                    <h4 class="tieu-de-kyc">📋 Hồ sơ xác thực KYC Chủ trọ (Yêu cầu minh bạch)</h4>
+                    <div class="nhom-nhap">
+                        <label>Số CCCD / Hộ chiếu</label>
+                        <input type="text" id="cccdSo" placeholder="Nhập 12 số CCCD">
+                    </div>
+                    <div class="hang-doi">
+                        <div class="nhom-nhap">
+                            <label>Ảnh CCCD mặt trước</label>
+                            <input type="file" id="anhCccdTruoc" accept="image/*">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Ảnh CCCD mặt sau</label>
+                            <input type="file" id="anhCccdSau" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="nut-dang-ky" class="nut-xac-nhan">ĐĂNG KÝ NGAY</button>
+            </form>
+
+            <div class="chan-the">
+                Đã có tài khoản? <a href="/cac_trang/xac_thuc/dang_nhap/dang_nhap.html">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/tien_ich_dung_chung/thong_bao_dep.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="dang_ky.js"></script>
+</body>
+</html>

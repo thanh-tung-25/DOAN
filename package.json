@@ -1,0 +1,11 @@
+{
+  "name": "doan-quan-ly-phong-tro",
+  "version": "1.0.0",
+  "description": "He thong quan ly phong tro Smart",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev"
+  }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ Cá Nhân - Khách Thuê</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/widget_tro_ly_ao/widget_tro_ly_ao.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="ho_so.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-khach_thue">Khách thuê</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">CỔNG KHÁCH THUÊ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Thông Tin Cá Nhân (Hồ Sơ)</h1>
+                    <p>Cập nhật số điện thoại, thông tin đại diện và tài khoản bảo mật</p>
+                </div>
+            </div>
+
+            <div class="khung-the-noi-dung" style="max-width: 600px;">
+                <form id="form-ho-so" onsubmit="capNhatThongTin(event)">
+                    <div style="display:flex; align-items:center; gap:16px; margin-bottom: 24px;">
+                        <div style="width:64px; height:64px; border-radius:50%; background:#e2e8f0; display:flex; align-items:center; justify-content:center; font-size:32px;">
+                            👤
+                        </div>
+                        <div>
+                            <h3 id="hs-ten-hien-thi">Lê Thị Thu</h3>
+                            <small id="hs-email-hien-thi">khachthue@gmail.com</small>
+                        </div>
+                    </div>
+
+                    <div class="nhom-nhap">
+                        <label>Họ và Tên</label>
+                        <input type="text" id="hs-ho-ten" required>
+                    </div>
+
+                    <div class="nhom-nhap">
+                        <label>Số điện thoại liên hệ</label>
+                        <input type="tel" id="hs-sdt" required>
+                    </div>
+
+                    <div class="nhom-nhap">
+                        <label>Địa chỉ Email (Không đổi)</label>
+                        <input type="email" id="hs-email" disabled style="background:#f1f5f9;">
+                    </div>
+
+                    <button type="submit" class="nut-chinh">Lưu Cập Nhật</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Nut SOS -->
+    <div id="vung-nut-sos" class="vung-nut-sos">
+        <button id="nut-bam-sos" class="nut-bam-sos"><span class="chu-sos">SOS</span><span class="nhan-sos">CỨU HỘ</span></button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="ho_so.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.canh-bao-ro-ri-do {
+    border: 2px solid #ef4444;
+    background: #fef2f2;
+    color: #b91c1c;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    animation: nhap-nhay-vien 1s infinite alternate;
+}
+
+@keyframes nhap-nhay-vien {
+    from { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    to { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+}
+
+.item-chia-bill {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

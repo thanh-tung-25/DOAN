@@ -1,0 +1,72 @@
+.banner-tim-kiem {
+    background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #0d9488 100%);
+    color: #ffffff;
+    padding: 44px 36px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 16px 36px -10px rgba(6, 78, 59, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-tim-kiem::after {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(167, 243, 208, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.banner-tim-kiem h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.banner-tim-kiem p {
+    font-size: 15px;
+    color: #d1fae5;
+    margin-bottom: 24px;
+    max-width: 600px;
+}
+
+.thanh-tim-kiem-hop {
+    display: flex;
+    gap: 12px;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.thanh-tim-kiem-hop input {
+    flex: 2;
+    border: none;
+    padding: 12px 18px;
+    font-size: 14px;
+    outline: none;
+    color: #0f172a;
+    font-family: inherit;
+}
+
+.thanh-tim-kiem-hop select {
+    flex: 1;
+    border: 1px solid #d1fae5;
+    background: #f0fdf4;
+    color: #065f46;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.thanh-tim-kiem-hop select:focus {
+    border-color: #059669;
+}

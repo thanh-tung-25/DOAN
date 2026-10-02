@@ -1,0 +1,65 @@
+.luoi-hai-cot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.khung-the-noi-dung {
+    background: #ffffff;
+    border: 1px solid var(--mau-vien);
+    border-radius: var(--ban-kinh-bo-goc);
+    padding: 24px;
+    box-shadow: var(--do-bong-nhe);
+}
+
+.khung-the-noi-dung h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #0f172a;
+}
+
+.thanh-tien-do-muc {
+    margin-bottom: 16px;
+}
+
+.nhan-tien-do {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #475569;
+}
+
+.vung-bar {
+    width: 100%;
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.5s ease;
+}
+
+.danh-sach-can-chu-y {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.danh-sach-can-chu-y li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.cham-cam { width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
+.cham-do { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
+.cham-xanh { width: 10px; height: 10px; border-radius: 50%; background: #10b981; flex-shrink: 0; }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Thống Kê - Chủ Trọ</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="thong_ke.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (CHỦ TRỌ)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-chu_doanh_nghiep">Chủ trọ</span>
+                <span class="ten-user">Nguyễn Văn Chủ</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ CHỦ TRỌ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Báo Cáo Doanh Thu & Tiêu Thụ Điện Nước</h1>
+                    <p>Theo dõi tổng quan tài chính, tình trạng phòng và sản lượng tiêu thụ hàng tháng</p>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="the-thong-ke-grid">
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#ecfdf5; color:#059669;">🚪</div>
+                    <div>
+                        <div id="kpi-tong-phong" class="chi-so-kpi">0</div>
+                        <div class="nhan-kpi">Tổng số phòng trọ</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#ecfdf5; color:#059669;">🔑</div>
+                    <div>
+                        <div id="kpi-da-thue" class="chi-so-kpi">0</div>
+                        <div class="nhan-kpi">Phòng đang thuê</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#fef3c7; color:#d97706;">🗝️</div>
+                    <div>
+                        <div id="kpi-con-trong" class="chi-so-kpi">0</div>
+                        <div class="nhan-kpi">Phòng còn trống</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#fdf2f8; color:#db2777;">💵</div>
+                    <div>
+                        <div id="kpi-doanh-thu" class="chi-so-kpi">0 đ</div>
+                        <div class="nhan-kpi">Doanh thu tháng này</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bang du lieu chi tiet theo thang -->
+            <div class="khung-bang">
+                <div style="padding: 16px; border-bottom: 1px solid var(--mau-vien); font-weight: 700; color: #0f172a;">
+                    📊 Chi Tiết Doanh Thu & Tiêu Thụ Điện Nước Năm 2026
+                </div>
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Tháng</th>
+                            <th>Tổng doanh thu</th>
+                            <th>Đã thu</th>
+                            <th>Còn nợ</th>
+                            <th>Sản lượng điện (kWh)</th>
+                            <th>Sản lượng nước (m³)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-thong-ke-thang">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Canh bao SOS cho chu tro -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="thong_ke.js"></script>
+</body>
+</html>

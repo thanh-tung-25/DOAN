@@ -1,0 +1,46 @@
+.luoi-canh-bao {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.the-canh-bao-item {
+    background: #ffffff;
+    border: 1px solid var(--mau-vien);
+    border-radius: var(--ban-kinh-bo-goc);
+    padding: 24px;
+    box-shadow: var(--do-bong-nhe);
+}
+
+.dau-the-cb {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--mau-vien);
+    padding-bottom: 12px;
+}
+
+.icon-cb {
+    font-size: 32px;
+}
+
+.dau-the-cb h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.noi-dung-cb p {
+    font-size: 14px;
+    color: #334155;
+    margin-bottom: 10px;
+}
+
+.danh-sach-pccc {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13px;
+}

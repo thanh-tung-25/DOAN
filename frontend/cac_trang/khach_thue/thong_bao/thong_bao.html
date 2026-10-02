@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Báo & Báo Hỏng Sự Cố - Khách Thuê</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="thong_bao.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-khach_thue">Khách thuê</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">CỔNG KHÁCH THUÊ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Thông Báo & Phiếu Báo Hỏng Thiết Bị (Ticket)</h1>
+                    <p>Theo dõi các thông báo tiền phòng, tiến độ sửa chữa hoặc gửi yêu cầu bảo dưỡng mới</p>
+                </div>
+                <button class="nut-chinh" onclick="moModalBaoHong()">+ Gửi Báo Hỏng Thiết Bị</button>
+            </div>
+
+            <!-- Danh sach su co da gui -->
+            <div class="khung-bang" style="margin-bottom: 24px;">
+                <div style="padding:16px; border-bottom:1px solid var(--mau-vien); font-weight:700;">
+                    🛠️ Tiến Độ Xử Lý Các Phiếu Báo Hỏng Đã Gửi
+                </div>
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Mã Ticket</th>
+                            <th>Tiêu đề sự cố</th>
+                            <th>Mô tả chi tiết</th>
+                            <th>Trạng thái xử lý</th>
+                            <th>Chi phí dự kiến</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-su-co-khach">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Thong bao he thong -->
+            <div class="khung-the-noi-dung">
+                <h3 style="margin-bottom: 16px;">📢 Thông Báo Từ Ban Quản Lý & Chủ Trọ</h3>
+                <ul class="danh-sach-thong-bao-chung">
+                    <li>
+                        <span class="icon-tb">🔔</span>
+                        <div>
+                            <strong>Hóa đơn tiền phòng Tháng 9/2026 đã sẵn sàng</strong>
+                            <p style="font-size:13px; color:#64748b;">Vui lòng truy cập mục Hóa đơn để quét VietQR hoặc chia bill trước ngày 05/09/2026.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="icon-tb">🧯</span>
+                        <div>
+                            <strong>Nhắc nhở kiểm tra an toàn PCCC định kỳ</strong>
+                            <p style="font-size:13px; color:#64748b;">Không sạc xe điện qua đêm ở hành lang, tắt các thiết bị điện trước khi ra khỏi phòng.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Gui Bao Hong -->
+    <div id="modal-bao-hong" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 500px;">
+            <div class="tieu-de-modal">
+                <h3>Gửi Báo Hỏng Thiết Bị Phòng</h3>
+                <button onclick="dongModalBaoHong()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <form id="form-bao-hong" onsubmit="xuLyGuiBaoHong(event)">
+                <div class="noi-dung-modal">
+                    <div class="nhom-nhap">
+                        <label>Chọn phòng trọ cần báo hỏng</label>
+                        <select id="bh-phong" required style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:10px;"></select>
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Tiêu đề sự cố (Ví dụ: Vòi nước rò rỉ, máy lạnh không lạnh)</label>
+                        <input type="text" id="bh-tieu-de" required placeholder="Bóng đèn toilet bị cháy...">
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Mô tả chi tiết tình trạng</label>
+                        <textarea id="bh-mo-ta" rows="3" style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:10px;" required placeholder="Mô tả cụ thể để thợ chuẩn bị đồ nghề..."></textarea>
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalBaoHong()">Hủy</button>
+                    <button type="submit" class="nut-chinh">Gửi Báo Hỏng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Nut SOS -->
+    <div id="vung-nut-sos" class="vung-nut-sos">
+        <button id="nut-bam-sos" class="nut-bam-sos"><span class="chu-sos">SOS</span><span class="nhan-sos">CỨU HỘ</span></button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/nut_khan_cap_sos/nut_khan_cap_sos.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="thong_bao.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "quan_ly_phong_tro_frontend",
+  "version": "1.0.0",
+  "description": "Frontend giao dien quan ly phong tro",
+  "scripts": {
+    "dev": "node may_chu_frontend.js",
+    "start": "node may_chu_frontend.js"
+  }
+}

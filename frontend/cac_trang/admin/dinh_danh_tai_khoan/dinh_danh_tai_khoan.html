@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Định Danh & KYC - Admin</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="dinh_danh_tai_khoan.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (ADMIN)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-admin">Admin</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ VIÊN</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Định Danh & Tài Khoản (Identity & KYC)</h1>
+                    <p>Phê duyệt hồ sơ chủ trọ, quản lý người dùng và xử lý vi phạm</p>
+                </div>
+            </div>
+
+            <!-- Tab chuyen doi: Danh sach nguoi dung & Ho so KYC cho duyet -->
+            <div class="thanh-tab">
+                <button id="tab-nguoi-dung" class="nut-tab kich-hoat" onclick="chuyenTab('nguoi_dung')">👥 Danh sách người dùng</button>
+                <button id="tab-kyc" class="nut-tab" onclick="chuyenTab('kyc')">🪪 Hồ sơ KYC chờ phê duyệt (<span id="so-kyc-cho">0</span>)</button>
+            </div>
+
+            <!-- PHAN 1: DANH SACH NGUOI DUNG -->
+            <div id="phan-nguoi-dung">
+                <div class="thanh-bo-loc">
+                    <input type="text" id="tu-khoa-tim" placeholder="Tìm tên, email, SĐT..." onkeyup="locNguoiDung()">
+                    <select id="loc-vai-tro" onchange="locNguoiDung()">
+                        <option value="">Tất cả vai trò</option>
+                        <option value="chu_doanh_nghiep">Chủ trọ</option>
+                        <option value="khach_thue">Khách thuê</option>
+                        <option value="nhan_vien">Nhân viên</option>
+                    </select>
+                    <select id="loc-trang-thai" onchange="locNguoiDung()">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="hoat_dong">Hoạt động</option>
+                        <option value="cho_duyet_kyc">Chờ duyệt KYC</option>
+                        <option value="bi_khoa">Bị khóa tạm thời</option>
+                        <option value="bi_cam">Bị cấm vĩnh viễn</option>
+                    </select>
+                </div>
+
+                <div class="khung-bang">
+                    <table class="bang-du-lieu">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Họ và Tên</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Vai trò</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác xử lý</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bang-ds-nguoi-dung">
+                            <!-- Render tu JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PHAN 2: PHE DUYET KYC CHU TRO -->
+            <div id="phan-kyc" style="display: none;">
+                <div class="khung-bang">
+                    <table class="bang-du-lieu">
+                        <thead>
+                            <tr>
+                                <th>Chủ trọ</th>
+                                <th>Số CCCD</th>
+                                <th>Ảnh CCCD Trước / Sau</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động phê duyệt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bang-ds-kyc">
+                            <!-- Render tu JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal xem anh CCCD -->
+    <div id="modal-xem-cccd" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal">
+            <div class="tieu-de-modal">
+                <h3>Xem Minh Chứng CCCD & Giấy Phép</h3>
+                <button onclick="dongModalCCCD()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="noi-dung-modal" style="text-align: center;">
+                <p>Ảnh chụp mặt trước:</p>
+                <img id="img-cccd-truoc" src="" alt="Mặt trước" style="max-width: 100%; border-radius: 8px; margin-bottom: 12px; border:1px solid #cbd5e1;">
+                <p>Ảnh chụp mặt sau:</p>
+                <img id="img-cccd-sau" src="" alt="Mặt sau" style="max-width: 100%; border-radius: 8px; border:1px solid #cbd5e1;">
+            </div>
+        </div>
+    </div>
+
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="dinh_danh_tai_khoan.js"></script>
+</body>
+</html>

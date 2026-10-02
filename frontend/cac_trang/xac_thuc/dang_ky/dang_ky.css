@@ -1,0 +1,201 @@
+.khung-dang-ky {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #047857 0%, #064e3b 40%, #021a14 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.khung-dang-ky::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.the-dang-ky {
+    background: #ffffff;
+    width: 100%;
+    max-width: 560px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px -15px rgba(2, 44, 34, 0.5), 0 0 0 1px rgba(167, 243, 208, 0.5);
+    position: relative;
+    z-index: 10;
+}
+
+.dau-the {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.dau-the h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #064e3b;
+    letter-spacing: -0.5px;
+}
+
+.dau-the p {
+    font-size: 13.5px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.nhom-vai-tro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.lua-chon-vai-tro input {
+    display: none;
+}
+
+.hop-chon {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f8fafc;
+}
+
+.hop-chon .icon {
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+
+.hop-chon strong {
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.hop-chon small {
+    font-size: 11.5px;
+    color: #64748b;
+    margin-top: 4px;
+    line-height: 1.35;
+}
+
+.hop-chon:hover {
+    border-color: #a7f3d0;
+    background: #f0fdf4;
+}
+
+.lua-chon-vai-tro input:checked + .hop-chon {
+    border-color: #059669;
+    background: #ecfdf5;
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.15);
+}
+
+.lua-chon-vai-tro input:checked + .hop-chon strong {
+    color: #065f46;
+}
+
+.hang-doi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.nhom-nhap {
+    margin-bottom: 16px;
+}
+
+.nhom-nhap label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.nhom-nhap input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 13.5px;
+    outline: none;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+
+.nhom-nhap input:focus {
+    border-color: #059669;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15);
+}
+
+.vung-kyc {
+    background: #f0fdf4;
+    border: 1px dashed #059669;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 22px;
+}
+
+.tieu-de-kyc {
+    font-size: 13px;
+    font-weight: 800;
+    color: #064e3b;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nut-xac-nhan {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 8px 20px rgba(5, 150, 105, 0.35);
+    margin-top: 10px;
+}
+
+.nut-xac-nhan:hover {
+    background: linear-gradient(135deg, #047857 0%, #059669 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(5, 150, 105, 0.45);
+}
+
+.chan-the {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13.5px;
+    color: #64748b;
+}
+
+.chan-the a {
+    color: #059669;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.chan-the a:hover {
+    color: #047857;
+    text-decoration: underline;
+}

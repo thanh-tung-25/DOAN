@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đối Soát & Hoa Hồng Sàn - Admin</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="doi_soat_hoa_hong.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (ADMIN)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-admin">Admin</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ VIÊN</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Đối Soát & Hoa Hồng Sàn (Settlement & Commission)</h1>
+                    <p>Theo dõi hoa hồng 10% tháng đầu tự động trích xuất từ hợp đồng cọc & kiểm soát công nợ chủ trọ</p>
+                </div>
+            </div>
+
+            <!-- Bang thong ke tong hop hoa hong -->
+            <div class="the-thong-ke-grid">
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#ecfdf5; color:#059669;">💵</div>
+                    <div>
+                        <div id="tong-da-thu" class="chi-so-kpi">0 đ</div>
+                        <div class="nhan-kpi">Tổng hoa hồng đã thu</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#fee2e2; color:#dc2626;">⏳</div>
+                    <div>
+                        <div id="tong-con-no" class="chi-so-kpi">0 đ</div>
+                        <div class="nhan-kpi">Công nợ chủ trọ chưa nộp</div>
+                    </div>
+                </div>
+                <div class="the-kpi">
+                    <div class="icon-kpi" style="background:#ecfdf5; color:#059669;">⚙️</div>
+                    <div>
+                        <div class="chi-so-kpi">10%</div>
+                        <div class="nhan-kpi">Tỷ lệ chiết khấu tháng đầu</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="khung-bang">
+                <table class="bang-du-lieu">
+                    <thead>
+                        <tr>
+                            <th>Mã HĐ</th>
+                            <th>Chủ trọ</th>
+                            <th>Số tiền hoa hồng (10%)</th>
+                            <th>Hạn chót thanh toán</th>
+                            <th>Trạng thái công nợ</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bang-hoa-hong">
+                        <!-- Render JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="doi_soat_hoa_hong.js"></script>
+</body>
+</html>

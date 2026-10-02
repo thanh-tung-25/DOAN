@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bài Đăng Cho Thuê - Chủ Trọ</title>
+    <link rel="stylesheet" href="/tai_nguyen_dung_chung/phong_cach_chung.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thanh_ben/thanh_ben.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.css">
+    <link rel="stylesheet" href="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.css">
+    <link rel="stylesheet" href="bai_dang.css">
+</head>
+<body>
+    <header class="thanh-dieu-huong">
+        <div class="tdh-trai"><div class="logo-thuong-hieu">🏠 PHÒNG TRỌ <strong>SMART (CHỦ TRỌ)</strong></div></div>
+        <div class="tdh-phai">
+            <div class="hop-nguoi-dung">
+                <span class="the-vai-tro vai-tro-chu_doanh_nghiep">Chủ trọ</span>
+                <button id="nut-dang-xuat" class="nut-dang-xuat">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bo-cuc-chinh">
+        <aside id="thanh-ben-he-thong" class="thanh-ben">
+            <div class="tieu-de-phan-he"><span id="nhan-phan-he">QUẢN TRỊ CHỦ TRỌ</span></div>
+            <nav class="danh-sach-menu"><ul id="danh-sach-lien-ket"></ul></nav>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="tieu-de-trang">
+                <div>
+                    <h1>Quản Lý Bài Đăng & Tin Tuyển Ở Ghép</h1>
+                    <p>Đăng tin nhanh từ phòng có sẵn, đồng bộ trạng thái realtime và tiếp nhận yêu cầu ở ghép</p>
+                </div>
+                <button class="nut-chinh" onclick="moModalDangTin()">+ Tạo Tin Đăng Nhanh</button>
+            </div>
+
+            <!-- Thanh cong cu loc & tab -->
+            <div class="thanh-dieu-khien-tin">
+                <div class="nhom-tab-tin">
+                    <button type="button" id="tab-tat-ca" class="tab-nut tab-active" onclick="chuyenTabBaiDang('tat_ca')">
+                        📋 Tất cả bài đăng (<span id="dem-tat-ca">0</span>)
+                    </button>
+                    <button type="button" id="tab-cua-toi" class="tab-nut" onclick="chuyenTabBaiDang('cua_toi')">
+                        ⭐ Bài đăng của tôi (<span id="dem-cua-toi">0</span>)
+                    </button>
+                </div>
+                <div class="hop-tim-kiem-tin">
+                    <input type="text" id="tim-kiem-bai-dang" placeholder="🔍 Tìm kiếm bài đăng, người đăng, SĐT..." oninput="locDanhSachBaiDang()">
+                </div>
+            </div>
+
+            <!-- Danh sach bai dang -->
+            <div id="danh-sach-tin-dang" class="luoi-bai-dang">
+                <!-- Render bang JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Dang Tin -->
+    <div id="modal-dang-tin" class="lop-phu-modal" style="display: none;">
+        <div class="hop-modal" style="max-width: 600px;">
+            <div class="tieu-de-modal">
+                <h3>Tạo Bài Đăng Cho Thuê Nhanh</h3>
+                <button onclick="dongModalDangTin()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <form id="form-dang-tin" onsubmit="xuLyDangTin(event)">
+                <div class="noi-dung-modal">
+                    <div class="nhom-nhap">
+                        <label>Chọn phòng trọ có sẵn (Tự động lấy giá & diện tích)</label>
+                        <select id="chon-phong-dang" required></select>
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Tiêu đề bài đăng hấp dẫn</label>
+                        <input type="text" id="tin-tieu-de" required placeholder="Ví dụ: Phòng trọ ban công full nội thất gần ĐH Tôn Đức Thắng">
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Mô tả chi tiết</label>
+                        <textarea id="tin-mo-ta" rows="3" style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:10px;" placeholder="Giờ giấc tự do, có máy lạnh, kệ bếp, WC riêng..."></textarea>
+                    </div>
+                    <div class="nhom-nhap">
+                        <label style="display:flex; justify-content:space-between; align-items:center;">
+                            <span>📸 Tải Ảnh Phòng Trọ Từ Máy Tính (Chọn file trực tiếp)</span>
+                            <span id="tin-so-luong-anh" style="font-size:12px; color:#059669; font-weight:700;">Chưa chọn ảnh</span>
+                        </label>
+                        <div class="khu-vuc-tai-anh" id="vung-keo-tha-anh-tin" onclick="document.getElementById('tin-tep-anh').click()">
+                            <span class="bieu-tuong-tai">📁</span>
+                            <div class="dong-chu-chinh">Bấm vào đây để chọn file ảnh từ máy tính hoặc kéo thả vào</div>
+                            <div class="dong-chu-phu">Hỗ trợ JPG, PNG, WEBP (Có thể chọn nhiều ảnh cùng lúc)</div>
+                        </div>
+                        <input type="file" id="tin-tep-anh" multiple accept="image/png,image/jpeg,image/webp" style="display:none;" onchange="xuLyChonTepAnhTin(event)">
+                        
+                        <!-- Lưới xem trước ảnh đã chọn -->
+                        <div id="tin-danh-sach-xem-truoc-anh" class="luoi-xem-truoc-anh"></div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="nhom-nhap">
+                            <label>Giá thuê thực tế (VND/tháng)</label>
+                            <input type="number" id="tin-gia-thue" placeholder="Để trống nếu lấy theo phòng">
+                        </div>
+                        <div class="nhom-nhap">
+                            <label>Diện tích thực tế (m²)</label>
+                            <input type="number" id="tin-dien-tich" placeholder="Để trống nếu lấy theo phòng">
+                        </div>
+                    </div>
+                    <div class="nhom-nhap">
+                        <label>Tiện ích nổi bật (Cách nhau dấu phẩy)</label>
+                        <input type="text" id="tin-tien-ich" value="Máy lạnh, Tủ lạnh, WC riêng, Camera an ninh, Wifi tốc độ cao">
+                    </div>
+                    <div class="nhom-nhap">
+                        <label><input type="checkbox" id="tin-cho-o-ghep" checked> Cho phép người thuê gửi yêu cầu ở ghép</label>
+                    </div>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut-phu" onclick="dongModalDangTin()">Hủy</button>
+                    <button type="submit" class="nut-chinh">Đăng Tin Lên Sàn</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Canh bao SOS cho chu tro -->
+    <div id="hop-thoai-bao-dong-sos" class="man-hinh-chop-do-sos" style="display: none;">
+        <div class="hop-canh-bao-trung-tam">
+            <div class="icon-canh-bao-dong">🚨</div>
+            <h2 class="tieu-de-khan-cap">CẢNH BÁO BÁO ĐỘNG SOS KHẨN CẤP!</h2>
+            <div class="chi-tiet-sos">
+                <p id="sos-vi-tri-phong" class="dong-thong-tin">Phòng: <strong>P.101</strong></p>
+                <p id="sos-ten-khach" class="dong-thong-tin">Khách thuê: <strong>Lê Thị Thu</strong></p>
+                <p id="sos-thoi-gian" class="dong-thong-tin">Thời gian: <strong>Vừa xong</strong></p>
+                <p id="sos-noi-dung" class="dong-thong-tin noi-dung-nhan">Khách thuê bấm nút khẩn cấp SOS!</p>
+            </div>
+            <button id="nut-xac-nhan-sos" class="nut-xac-nhan-sos">ĐÃ XỬ LÝ / TẮT CÒI BÁO ĐỘNG</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/thanh_phan_dung_chung/thong_bao_noi/thong_bao_noi.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_dieu_huong/thanh_dieu_huong.js"></script>
+    <script src="/thanh_phan_dung_chung/thanh_ben/thanh_ben.js"></script>
+    <script src="/thanh_phan_dung_chung/hop_thoai_bao_dong/hop_thoai_bao_dong.js"></script>
+    <script src="/tien_ich_dung_chung/luu_tru.js"></script>
+    <script src="/tien_ich_dung_chung/dinh_dang.js"></script>
+    <script src="/tien_ich_dung_chung/api.js"></script>
+    <script src="/tien_ich_dung_chung/ket_noi_socket.js"></script>
+    <script src="bai_dang.js"></script>
+</body>
+</html>
